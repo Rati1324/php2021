@@ -10,7 +10,7 @@
             width:260px;
             margin: auto; 
         }
-        
+
     </style>
 </head>
 <body>
@@ -25,7 +25,7 @@
                     if ($_POST['a_1'] == "ans_2"){
                         echo "ans_2" . "<span style='color:green'> Correct </span>";$count++;
                     }
-                    else echo "ans_2" . "<span style='color:red'> InCorrect </span>";$count++;
+                    else echo "ans_2" . "<span style='color:red'> InCorrect </span>";
                 ?>
             </li>
             <li> 
