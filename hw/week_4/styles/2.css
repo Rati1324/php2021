@@ -1,0 +1,32 @@
+form{
+    width: 250px;
+    margin:auto;
+}
+label{
+    display: inline-block;
+    width: 30px;
+    margin-right: 20px;
+    text-align: right;
+}
+
+table{
+    border: 1px solid;
+    margin: auto;
+    margin-top: 20px;
+
+}
+
+td{
+    height: 40px;
+    width: 40px;
+    border: 1px solid;
+}
+input{margin: 3px;}
+
+.error{color: red}
+
+.result{
+    width: 150px;
+    margin: auto;
+    margin-top :20px;
+}

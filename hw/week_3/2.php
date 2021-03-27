@@ -61,6 +61,7 @@
                 foreach($_POST['matrix'] as $val) $sum += $val; $prod *= $val;
                 
             }
+
             // RANDOM MATRIX
             else {
                 
@@ -101,7 +102,7 @@
             <?php 
                 foreach($matrix as $row2){
                     foreach($row2 as $col2){
-                        echo "<input type='hidden' name='matrix[]' value='" . $col2 . "' > ";
+                        echo "<input type='hidden' name='matrix[]' value='" . "<?=$col2?>" . "' > ";
                     }
                 }
             ?>
@@ -111,30 +112,30 @@
         </form>
 
         <?php if(isset($_POST['send'])) {  ?>
-        <h2>Result </h2>
-        <table>
-            <tr>
-                <td>multiples</td>
-                <td>sum</td>
-                <td>mean</td>
-                <td>product</td>
-                <td>geometric mean</td>
-                </tr>
+            <h2>Result </h2>
+            <table>
+                <tr>
+                    <td>multiples</td>
+                    <td>sum</td>
+                    <td>mean</td>
+                    <td>product</td>
+                    <td>geometric mean</td>
+                    </tr>
 
-            <tr>
-                <td> <?php
-                    if (!empty($multiples)){
-                        foreach($multiples as $val){
-                            echo $val . " ";
+                <tr>
+                    <td> <?php
+                        if (!empty($multiples)){
+                            foreach($multiples as $val){
+                                echo $val . " ";
+                            }
                         }
-                    }
-                ?> </td> 
-                <td> <?=$sum?> </td>
-                <td> <?=$sum/16?> </td>
-                <td> <?=$prod?> </td>
-                <td> <?=pow($prod,1/16)?> </td>
-            </tr>
-        </table>
+                    ?> </td> 
+                    <td> <?=$sum?> </td>
+                    <td> <?=$sum/16?> </td>
+                    <td> <?=$prod?> </td>
+                    <td> <?=pow($prod,1/16)?> </td>
+                </tr>
+            </table>
         <?php } ?>
     
 
