@@ -35,7 +35,6 @@
         <?php
             echo "<h2>Random Matrix</h2>";
             
-
             $matrix = [[], [], [], []]; 
             $old_value = "";
             if (isset($_POST['send'])){
@@ -47,7 +46,6 @@
                     if (($_POST['matrix'][$i] % $_POST['num']) == 0) array_push($multiples, $_POST['matrix'][$i]);
                 }
 
-                
                 // MAIN MATRIX
                 echo "<table>";
                 foreach($matrix as $row){
@@ -57,14 +55,12 @@
                 }
                 echo "</table>";
 
-                // OUTPUTTING THE RESULT TABLE
-                foreach($_POST['matrix'] as $val) $sum += $val; $prod *= $val;
+                foreach($_POST['matrix'] as $val) {$sum += $val; $prod *= $val;}
                 
             }
 
             // RANDOM MATRIX
             else {
-                
                 echo "<table>";
                 foreach($matrix as &$row){
                     echo "<tr>";
@@ -77,7 +73,6 @@
                 }
                 echo "</table>";
             }
-
 
             $col_value = "";
 
@@ -97,12 +92,12 @@
         ?>
 
         <form method="post" autocomplete="off" class="input">
-                Enter a number: <input type="text" name="num" value="<?=$old_value?>" required>
-                <button name="send">Send</button>
+            Enter a number: <input type="text" name="num" value="<?=$old_value?>" required>
+            <button name="send">Send</button>
             <?php 
                 foreach($matrix as $row2){
                     foreach($row2 as $col2){
-                        echo "<input type='hidden' name='matrix[]' value='" . "<?=$col2?>" . "' > ";
+                        echo "<input type='hidden' name='matrix[]' value='" . " $col2 " . "' > ";
                     }
                 }
             ?>
