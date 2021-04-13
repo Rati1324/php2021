@@ -3,6 +3,19 @@
     define("styles", "https://localhost/php2021/hw/week_6/styles/");
     $content_path = "content/";
    
+
+    function create_new_folder($folder_name){
+        // create folder and content folder inside
+        $folder_path = 'content/' . "/" . $folder_name ;
+        mkdir($folder_path);
+        mkdir($folder_path . '/' . 'content/' );
+
+        // create index.php 
+        $index = fopen($folder_path . "/" . "index.php", 'w');
+            fwrite($index, '<?php include($_SERVER[\'DOCUMENT_ROOT\'] . 
+            "/php2021/hw/week_6/drive_back.php");');
+    }
+
     function clear_dir($dir) {
         if (is_dir($dir)){
             $files = scandir($dir);
@@ -33,19 +46,16 @@
 
     if (isset($_POST['create_folder'])){
         if (in_array($_POST['folder_name'], $content)){
-            mkdir($content_path . $_POST['folder_name'] . "(" . date("y-m-d-h-i-s") . ")");
-            mkdir($folder_path);
-            mkdir($folder_path . "/" . "content/" );
+            $folder_name = $_POST['folder_name'] . "(" . date("y-m-d-h-i-s") . ")";
+            create_new_folder($folder_name);
         }
         else{
-            $folder_path = $content_path . $_POST['folder_name'];
-            mkdir($folder_path);
-            mkdir($folder_path . "/" . "content/" );
+            $folder_name = $_POST['folder_name'];
+            create_new_folder($folder_name);
         }
     }
 
     if (isset($_POST['delete_file'])){
-        echo $content_path . $_POST['delete_file'];
         unlink($content_path . $_POST['delete_file']);
     }
 
@@ -54,13 +64,8 @@
         clear_dir($path);
     }
 
-    else{
-        if (isset($_GET['dir']))
-            echo $content_path = "content/" . $_GET['dir'];
-    }
 ?>
 
-<!-- <link rel="stylesheet" href="<?php echo $_SERVER['DOCUMENT_ROOT'] . "/php2021/hw/week_6/styles/drive.css"?> "> -->
 <div class="content">
     <h2> Files </h2>
     <?php
@@ -68,7 +73,6 @@
 
         for ($j=2; $j<count($content); $j++){   
             $delete = "delete_file";
-            echo realpath($content[$j]);
             if (is_dir($content_path . $content[$j])) $delete = "delete_folder";
             echo 
             "<li> <a class='read' href='" . "content/" . $content[$j] . "'>" . $content[$j] . "</a>" .
