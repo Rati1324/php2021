@@ -90,7 +90,7 @@
             }
             echo "</table>";
         ?>
-
+        
         <form method="post" autocomplete="off" class="input">
             Enter a number: <input type="text" name="num" value="<?=$old_value?>" required>
             <button name="send">Send</button>

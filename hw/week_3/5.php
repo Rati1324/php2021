@@ -127,7 +127,6 @@
             else {
                 foreach($user_error as $key => $value){
                     echo "<script> document.querySelector('#$key').style.color = 'black'  </script>";
-
             }
         }
 

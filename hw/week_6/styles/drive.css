@@ -1,0 +1,30 @@
+nav{
+    width: 400px;
+    margin: auto;
+}
+
+.content{
+    border: solid black 1px;
+    margin: 10px auto;
+    margin-top: 150px;
+    padding: 10px;
+    width: 500px;
+}
+
+li{
+    list-style-type: none;
+}
+
+li form{
+    display:inline-block;
+}
+
+.add_file_form, .add_folder_form{
+    visibility: hidden;
+    position: absolute;
+}
+
+.read{
+    display: inline-block;
+    width:65%;
+}
