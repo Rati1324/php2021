@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="https://localhost/php2021/hw/week_6/styles/drive.css">
 </head>
 
+
 <?php
     if (isset($_GET['txt'])){
         $file = fopen('./content' . '/' . $_GET['txt'], 'r');
