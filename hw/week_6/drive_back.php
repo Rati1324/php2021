@@ -4,8 +4,9 @@
     <link rel="stylesheet" href="https://localhost/php2021/hw/week_6/styles/drive.css">
 </head>
 
-
 <?php
+    if (!is_dir('content')) mkdir('content');
+
     if (isset($_GET['txt'])){
         $file = fopen('./content' . '/' . $_GET['txt'], 'r');
         $text = fread($file, filesize('./content' . '/' . $_GET['txt']));
@@ -15,16 +16,13 @@
         exit();
     }
 
-    // define("styles", "https://localhost/php2021/hw/week_6/styles/");
     $content_path = "content/";
     
     function create_new_folder($folder_name){
-        // create folder and content folder inside
         $folder_path = 'content/' . "/" . $folder_name ;
         mkdir($folder_path);
         mkdir($folder_path . '/' . 'content/' );
 
-        // create index.php 
         $index = fopen($folder_path . "/" . "index.php", 'w');
             fwrite($index, '<?php include($_SERVER[\'DOCUMENT_ROOT\'] . 
             "/php2021/hw/week_6/drive_back.php");');
@@ -102,7 +100,7 @@
             $href = "?txt=$content[$j]";
             $download = "<button> <a href='" . $content_path . $content[$j] . "' download>" . "Download" . "</a> </button> ";
             if (is_dir($content_path . $content[$j])) {
-                $href = "$content_path/$content[$j]";
+                $href = "$content_path/$content[$j]/index.php";
                 $delete = "delete_folder";
                 $download = "";
             }
