@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Drive</title>
-    <link rel="stylesheet" href="<?php echo styles . 'drive.css' ?>">
-</head>
+
     <body>
-        
-    <nav>
-        <button name="add_file" id="add_file"> Add a File </button>
-        <button name="add_folder" id="add_folder"> Add a Folder </button>
+   
+    <div class="container">
+        <div class="inner_container">
+            <div class="upload">
+                <p>Upload files:</p>
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file"><br>
+                    <button name="upload">Upload</button>
+                </form>
+            </div>
 
-        <form class="add_file_form" method="POST">
-            <input type="text" name="file_name" placeholder="File name">
-            <input type="text" name="file_data" placeholder="File data">
-            <button name="create_file">Create</button>
-        </form>
+            <button name="add_file" id="add_file"> Add a File </button>
+            <button name="add_folder" id="add_folder"> Add a Folder </button>
 
-        <form class="add_folder_form" method="POST">
-            <input type="text" name="folder_name" placeholder="Folder name">
-            <button name="create_folder">Create</button>
-        </form>
-    </nav>
+            <form class="add_file_form" method="POST">
+                <input type="text" name="file_name" placeholder="File name">
+                <input type="text" name="file_data" placeholder="File data">
+                <button name="create_file">Create</button>
+            </form>
 
+            <form class="add_folder_form" method="POST">
+                <input type="text" name="folder_name" placeholder="Folder name">
+                <button name="create_folder">Create</button>
+            </form>
+        </div>
+
+        <p style="color:red"><?=$type_check?></p>
+        <p style="color:red"><?=$size_check?></p>
+    </div>
 
     <script>
         var add_file = document.querySelector("#add_file");
@@ -40,4 +48,4 @@
 
     
 
-</html>
+
