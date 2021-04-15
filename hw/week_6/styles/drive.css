@@ -14,10 +14,6 @@
     width: 500px;
 }
 
-li{
-    
-
-}
 
 li form{
     display:inline-block;
@@ -32,8 +28,9 @@ li form{
     margin:0px;
     height:30px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     list-style-type: none;
+    justify-content: space-between;
     padding: 0px;
 }
 
@@ -43,7 +40,12 @@ li form{
 }
 
 .delete{
-    align-self: flex-end;
+    /* align-: end; */
+}
+
+.download_button{
+    width: 20%;
+    height:24px;
 }
 
 .item_control{

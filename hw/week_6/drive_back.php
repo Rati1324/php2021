@@ -33,11 +33,10 @@
             $files = scandir($dir);
             $files = array_slice($files, 2);
             foreach($files as $v){
-                if (is_dir($dir . "/" . $v)){
+                if (is_dir($dir . "/" . $v))
                     clear_dir($dir . "/" . $v);
-                }
                 else 
-                unlink($dir . "/" . $v);
+                    unlink($dir . "/" . $v);
             }
             rmdir($dir);
         }
@@ -98,17 +97,18 @@
         for ($j=2; $j<count($content); $j++){   
             $delete = "delete_file";
             $href = "?txt=$content[$j]";
-            $download = "<button> <a href='" . $content_path . $content[$j] . "' download>" . "Download" . "</a> </button> ";
+            $download_button = "<button class='download_button'> <a href='" . $content_path . $content[$j] . "' download>" . "Download" . "</a> </button> ";
             if (is_dir($content_path . $content[$j])) {
                 $href = "$content_path/$content[$j]/index.php";
                 $delete = "delete_folder";
-                $download = "";
+                $download_button = "";
             }
             echo
-            "<ul class='item'> 
-                <li> <a class='read' href='" . $href . "'>" . $content[$j] . "</a>" . $download . 
-                "<form method='post' class='delete'> <button type='hidden'  name='" . $delete ."' value='" . $content[$j] . "'> Delete </button> </form> </li>" . 
-            "</ul>";
+            "<div class='item'> 
+                <a class='read' href='$href'> $content[$j] </a> 
+                $download_button
+                <form method='post' class='delete'> <button type='hidden'  name='$delete' value='$content[$j]'> Delete </button> </form> 
+            </div>";
             
         }
         

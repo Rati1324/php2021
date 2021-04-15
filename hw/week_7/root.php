@@ -14,7 +14,6 @@
                 echo "<p><a href='root.php?file=$i'> $files[$i] </a></p>";
             }
         ?>
-
     </div>    
     <div class="file">
         <?php

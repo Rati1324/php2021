@@ -35,7 +35,6 @@
                     move_uploaded_file($file['tmp_name'], $file_path);
                 }
             }
-
         ?>
         <p> <?=$size_error?> </p>
         <p> <?=$type_error?> </p>
