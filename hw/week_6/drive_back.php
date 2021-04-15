@@ -98,21 +98,22 @@
             $delete = "delete_file";
             $href = "?txt=$content[$j]";
             $download_button = "<button class='download_button'> <a href='" . $content_path . $content[$j] . "' download>" . "Download" . "</a> </button> ";
+            
             if (is_dir($content_path . $content[$j])) {
                 $href = "$content_path/$content[$j]/index.php";
                 $delete = "delete_folder";
                 $download_button = "";
             }
-            echo
-            "<div class='item'> 
-                <a class='read' href='$href'> $content[$j] </a> 
-                $download_button
-                <form method='post' class='delete'> <button type='hidden'  name='$delete' value='$content[$j]'> Delete </button> </form> 
-            </div>";
-            
-        }
-        
     ?>
+
+        <div class='item'> 
+            <a class='read' href='<?=$href?>'> <?=$content[$j]?> </a> 
+            <?=$download_button?>
+            <form method='post' class='delete'> <button type='hidden'  name='<?=$delete?>' value='<?=$content[$j]?>'> Delete </button> </form> 
+        </div>
+            
+    <?php } ?>
+        
 </div>
 
 </body>
