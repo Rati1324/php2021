@@ -1,0 +1,27 @@
+form{
+    width: 20%;
+    border: 1px solid;
+    margin: auto;   
+}
+
+.output{
+    width:55%;
+    margin: auto;
+    text-align: center;
+}
+
+.output form{
+    width: 35%;
+    border: 1px solid;
+    margin: auto;   
+}
+
+.output input{
+    width:25px;
+}
+
+.option{
+    display: inline-block;
+    width:220px;
+    text-align: left;
+}
