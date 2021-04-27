@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <body>
+<body>
    
     <div class="container">
         <div class="inner_container">
@@ -12,7 +9,7 @@
                     <button name="upload">Upload</button>
                 </form>
             </div>
-
+            
             <button name="add_file" id="add_file"> Add a File </button>
             <button name="add_folder" id="add_folder"> Add a Folder </button>
 

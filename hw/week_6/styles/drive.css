@@ -3,6 +3,8 @@
     margin: auto;
     border: 1px solid;
     display: flex;
+    width: 400px;
+
 }
 
 
@@ -11,17 +13,8 @@
     margin: 10px auto;
     margin-top: 150px;
     padding: 10px;
-    width: 500px;
-}
-
-
-li form{
-    display:inline-block;
-}
-
-.add_file_form, .add_folder_form{
-    visibility: hidden;
-    position: absolute;
+    /* min-width: 50px; */
+    max-width: 500px;
 }
 
 .item{
@@ -45,10 +38,21 @@ li form{
     height:24px;
 }
 
-.item_control{
-    width:10px;
-    height:20px;
+.edit{
+    width:10%;
+    height: 24px;
+
 }
+
+li form{
+    display:inline-block;
+}
+
+.add_file_form, .add_folder_form{
+    visibility: hidden;
+    position: absolute;
+}
+
 
 .upload{
     margin-bottom: 30px;
@@ -59,4 +63,12 @@ li form{
     min-height: 300px;
     background-color:aqua;    
     margin:auto;
+}
+
+.edit_form{
+    display: block;
+    width: 200px;
+    margin: auto;
+    margin-top: 130px;
+    
 }

@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Drive</title>
@@ -5,42 +7,15 @@
 </head>
 
 <?php
+    include($_SERVER['DOCUMENT_ROOT'] . "/php2021/hw/week_6/functions.php");
     if (!is_dir('content')) mkdir('content');
 
-    if (isset($_GET['txt'])){
-        $file = fopen('./content' . '/' . $_GET['txt'], 'r');
-        $text = fread($file, filesize('./content' . '/' . $_GET['txt']));
-        echo "<div class='output'>";
-            echo $text;
-        echo "</div>";
+    if (isset($_GET['txt'])) { read(); exit();}
+    if (isset($_GET['file_name'])) {
+        include($_SERVER['DOCUMENT_ROOT'] . "/php2021/hw/week_6/edit.php");
         exit();
     }
-
     $content_path = "content/";
-    
-    function create_new_folder($folder_name){
-        $folder_path = 'content/' . "/" . $folder_name ;
-        mkdir($folder_path);
-        mkdir($folder_path . '/' . 'content/' );
-
-        $index = fopen($folder_path . "/" . "index.php", 'w');
-            fwrite($index, '<?php include($_SERVER[\'DOCUMENT_ROOT\'] . 
-            "/php2021/hw/week_6/drive_back.php");');
-    }
-
-    function clear_dir($dir) {
-        if (is_dir($dir)){
-            $files = scandir($dir);
-            $files = array_slice($files, 2);
-            foreach($files as $v){
-                if (is_dir($dir . "/" . $v))
-                    clear_dir($dir . "/" . $v);
-                else 
-                    unlink($dir . "/" . $v);
-            }
-            rmdir($dir);
-        }
-    }
     $content = scandir($content_path);
 
     if (isset($_POST['create_file'])){
@@ -76,8 +51,9 @@
     $size_check = "";
     if (isset($_POST['upload'])){
         $file = $_FILES['file'];
-
-        if (pathinfo($file['name'], PATHINFO_EXTENSION) != "txt")
+        
+        if (pathinfo($file['name'], PATHINFO_EXTENSION) != "txt" &&
+                pathinfo($file['name'], PATHINFO_EXTENSION) != "JPG")
             $type_check = "Invalid File Type";
         if ($file['size'] > 50 * 1024 * 1024) 
             $size_check = "Can't be bigger than 50mb";
@@ -93,23 +69,36 @@
     <h2> Files </h2>
     <?php
         $content = scandir($content_path);
-
-        for ($j=2; $j<count($content); $j++){   
-            $delete = "delete_file";
-            $href = "?txt=$content[$j]";
+        
+        for ($j=2; $j<count($content); $j++){  
+            $edit = "";
+            $name = "";
+            $href = "";
             $download_button = "<button class='download_button'> <a href='" . $content_path . $content[$j] . "' download>" . "Download" . "</a> </button> ";
+            if (pathinfo($content[$j], PATHINFO_EXTENSION) == "txt"){
+                $name = "delete_file";
+                $href = "?txt=$content[$j]";
+                $edit = "<button class='edit' value='$path'> <a href=?file_name=$path> Edit </a>  </button> ";
+            }
+            
+            $path = "content\\" . $content[$j];
             
             if (is_dir($content_path . $content[$j])) {
                 $href = "$content_path/$content[$j]/index.php";
-                $delete = "delete_folder";
+                $name = "delete_folder";
                 $download_button = "";
+                $edit = "";
             }
     ?>
 
         <div class='item'> 
             <a class='read' href='<?=$href?>'> <?=$content[$j]?> </a> 
             <?=$download_button?>
-            <form method='post' class='delete'> <button type='hidden'  name='<?=$delete?>' value='<?=$content[$j]?>'> Delete </button> </form> 
+            <form method='post' class='delete'> 
+                <button type='hidden'  name='<?=$name?>' value='<?=$content[$j]?>'> Delete </button> 
+            </form> 
+
+            <?=$edit?>
         </div>
             
     <?php } ?>
