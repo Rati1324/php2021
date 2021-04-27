@@ -53,7 +53,7 @@
         $file = $_FILES['file'];
         
         if (pathinfo($file['name'], PATHINFO_EXTENSION) != "txt" &&
-                pathinfo($file['name'], PATHINFO_EXTENSION) != "JPG")
+                pathinfo($file['name'], PATHINFO_EXTENSION) != "jpg")
             $type_check = "Invalid File Type";
         if ($file['size'] > 50 * 1024 * 1024) 
             $size_check = "Can't be bigger than 50mb";
@@ -75,13 +75,14 @@
             $name = "";
             $href = "";
             $download_button = "<button class='download_button'> <a href='" . $content_path . $content[$j] . "' download>" . "Download" . "</a> </button> ";
+
+            $path = "content\\" . $content[$j];
             if (pathinfo($content[$j], PATHINFO_EXTENSION) == "txt"){
                 $name = "delete_file";
                 $href = "?txt=$content[$j]";
                 $edit = "<button class='edit' value='$path'> <a href=?file_name=$path> Edit </a>  </button> ";
             }
             
-            $path = "content\\" . $content[$j];
             
             if (is_dir($content_path . $content[$j])) {
                 $href = "$content_path/$content[$j]/index.php";
