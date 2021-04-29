@@ -22,7 +22,7 @@
                 if (!empty(trim(end($q_split))) || !empty(trim($q_split[ count($q_split) - 1 ]))) { return 0; }
 
                 for ($i = 4; $i < count($q_split) - 2; $i++){
-                    $split = explode(" ", $q_split[$i]);
+                       $split = explode(" ", $q_split[$i]);
                     if ( strlen($split[0]) != 2 || $split[0][1] != ")" || empty($split[1])) { return 0; }
                 }
             } 
@@ -30,12 +30,12 @@
         }
 
         if (isset($_POST['upload'])){
-            $file = $_FILES['txt'];
-            move_uploaded_file($file['tmp_name'], "./test.txt");
-            
-            $file_open = fopen($file['name'], 'r');
-            $file_read = fread($file_open, filesize($file['name']));
-            echo check_format($file_read) ? "valid" : "invalid";
+            $file = $_FILES['txt']['tmp_name'];
+            $content = fopen($file, 'r');
+            $content = fread($content, filesize($file));
+            if (check_format($content))
+                move_uploaded_file($file, 'test.txt');
+            else echo "invalid format";
         }
     ?>
 </body>
