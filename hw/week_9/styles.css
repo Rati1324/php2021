@@ -1,0 +1,19 @@
+.container{
+    width: 30%;
+    margin: auto;
+}
+
+.insert{
+    margin-top: 20px;
+}
+.insert *{
+    margin: 10px;
+}
+
+table{
+    border: 1px solid;
+}
+
+table td{
+    border: 1px solid;
+}
