@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+
+<body>
+    
+    <header>
+        <a href="/">
+            <h3>Log In</h3>
+        </a>
+        <h3>Student Portal</h3>
+        <a href="/contact">
+            <h3>Contact</h3>
+        </a>
+    </header>    
+    
+    <div class="container">
+        <div class="wrapper">
+        <h3>Register</h3>
+                <form autocomplete="off">
+                    <ul>
+                        <li>
+                            <label for="email">E-mail:</label><br>
+                            <input type="text" id="email" name="email" required>
+                            <div class="errors" id="email_errors">
+
+                            </div>    
+                        </li>
+                            
+                        <li>
+                            <label for="password">Password:</label><br>
+                            <input type="password" id="password" name="password"  required>
+                            <div class="pw_strength" id="pw_strength">
+                                <span class="strength_text" id="strength_text">Password Strength: </span>
+                                <span id="strength"></span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <label for="password_confirm">Confirm Password:</label><br>
+                            <input type="password" id="password_confirm" name="password_confirm" required>
+                            <div class="errors" id="pw_errors">
+
+                            </div>
+                        </li>
+                            
+                        <li>
+                            <label for="dob">Date of Birth:</label><br>
+                            <input type="date" id="dob" name="dob">
+                        </li>
+
+                        <li class="name_input">
+                            <label>Name:</label><br>
+                            <input type="text" id="f_name" placeholder="First" name="f_name" required>
+                            <input type="text" id="l_name" placeholder="Last" name="l_name" required>
+                        </li>
+
+                        <li>
+                            <label for="phone">Phone:</label><br>
+                            <input type="text" id="phone" name="phone" required>
+                            <div class="errors" id="phone_errors">
+
+                            </div>
+                            
+                        </li>
+
+                        <li style="display:flex;flex-direction: column;">
+                            <button>Submit</button>
+                        </li>
+
+                            
+                    </ul>
+                </form>
+        </div>
+    </div>
+        
+        <footer>
+    </footer>
+    
+    <script>
+        const form = document.querySelector("form")
+        form.addEventListener("submit", register)
+        var pw_input = document.getElementById("password")
+        
+        // MAYBE ADD INTERACTIVE VALIDATION????
+
+        function register(e){
+            e.preventDefault()
+
+            document.getElementById("pw_errors").innerHTML = ""
+            document.getElementById("email_errors").innerHTML = ""
+            document.getElementById("phone_errors").innerHTML = ""
+
+            var email = document.getElementById("email").value
+            var password = document.getElementById("password").value
+            var password_confirm = document.getElementById("password_confirm").value
+            var dob = document.getElementById("dob").value
+            var f_name = document.getElementById("f_name").value
+            var l_name = document.getElementById("l_name").value
+            var phone = document.getElementById("phone").value
+            
+            var result = fetch('/register', { // await was here
+                method: 'POST',
+                // REDIRECT : 'FOLLOW'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    password,
+                    password_confirm,
+                    dob,
+                    f_name,
+                    l_name,
+                    phone
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                var errors = data.errors
+                var pw_errors = document.getElementById("pw_errors")
+                var email_errors = document.getElementById("email_errors")
+                var phone_errors = document.getElementById("phone_errors")
+                var strength_text = document.getElementById("strength_text")
+                var strength = document.getElementById("strength")
+
+                // PASSWORD STRENGTH
+                strength_text.style.visibility = "visible"
+                strength_text.style.position = "static"
+                strength.innerHTML = errors.pw_strength
+
+                // EMAIL
+                if (errors.email){
+                    email_errors.innerHTML = errors.email
+                }
+                
+                // PASSWORD
+                
+                if (errors.password){
+                    pw_errors.innerHTML = errors.password;
+                }
+                
+                // PHONE
+                if (errors.phone){
+                    phone_errors.innerHTML = errors.phone;
+                }
+                // console.log(errors)
+                if (errors.email==0 && errors.phone==0 && errors.pw_strength!="Weak") {
+                    window.location.href = "http://localhost:3000"
+                }
+                
+            })
+        }
+    </script>
+    
+</body>
+</html>
+

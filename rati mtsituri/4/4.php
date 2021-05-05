@@ -17,6 +17,7 @@
             array_shift($test); array_pop($test);
 
             foreach ($test as $q){
+                if (empty(trim($q))) { return 0; }
                 $q_split = explode("\n", $q);
                 if (!empty(trim($q_split[0])) || !empty(trim($q_split[1]))) { return 0; }
                 if (!empty(trim(end($q_split))) || !empty(trim($q_split[ count($q_split) - 1 ]))) { return 0; }
@@ -33,8 +34,10 @@
             $file = $_FILES['txt']['tmp_name'];
             $content = fopen($file, 'r');
             $content = fread($content, filesize($file));
-            if (check_format($content))
+            if (check_format($content)){
                 move_uploaded_file($file, 'test.txt');
+                echo "uploaded successfully";
+            }
             else echo "invalid format";
         }
     ?>

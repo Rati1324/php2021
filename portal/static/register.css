@@ -1,0 +1,91 @@
+html, body{
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+header{
+    width: 100%;
+    height: 5%;
+    background-color: rgb(238, 231, 231);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* padding-bottom: 10px; */
+}
+
+header a{
+    color: inherit;
+    text-decoration: none;
+}
+
+header a:last-child {
+    position:absolute;
+    right:5%;
+}
+
+header a:first-child {
+    position: absolute;
+    left: 5%;
+}
+
+.wrapper h3{
+    text-align: center;
+    margin:0px
+}
+
+.container{
+    background: rgb(165, 177, 187);
+    min-height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper{
+    background-color: rgb(106, 127, 165);
+    width:25%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding:30px;
+    
+}
+
+
+ul{
+    list-style-type: none;
+}
+
+li{
+    margin-bottom:10px;
+}
+input{
+    width: 85%;
+    height: 25px;
+    border-radius: 4px
+}
+
+.name_input input{
+    width: 41%;
+}
+
+button{
+    width:30%;
+}
+
+.strength_text{
+    visibility: hidden;
+    color: rgb(30, 76, 150);
+    position:absolute;
+}
+
+.errors{
+    color:red
+}
+
+footer{
+    height:5%;
+    background-color: rgb(54, 67, 90);
+}
