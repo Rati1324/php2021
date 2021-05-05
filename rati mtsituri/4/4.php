@@ -19,9 +19,10 @@
             foreach ($test as $q){
                 if (empty(trim($q))) { return 0; }
                 $q_split = explode("\n", $q);
-                if (!empty(trim($q_split[0])) || !empty(trim($q_split[1]))) { return 0; }
-                if (!empty(trim(end($q_split))) || !empty(trim($q_split[ count($q_split) - 1 ]))) { return 0; }
 
+                if (!empty(trim($q_split[0])) || !empty(trim($q_split[1])) || !empty(trim($q_split[3]))) { return 0; }
+                if (!empty(trim(end($q_split))) || !empty(trim($q_split[ count($q_split) - 1 ]))) { return 0; }
+                
                 for ($i = 4; $i < count($q_split) - 2; $i++){
                        $split = explode(" ", $q_split[$i]);
                     if ( strlen($split[0]) != 2 || $split[0][1] != ")" || empty($split[1])) { return 0; }
