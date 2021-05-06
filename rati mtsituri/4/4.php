@@ -12,22 +12,37 @@
     </form>
 
     <?php
+        function split_into_quesitons($arr){
+            if (trim($arr[0]) != "===") return 0;
+            $res = [];
+            $index = -1;
+            for ($i = 0; $i < count($arr); $i++) {
+                if (trim($arr[$i]) == "===") {
+                    array_push($res, []);
+                    $index++;
+                }
+                if ($index != -1) array_push($res[$index], $arr[$i]);
+            }
+            return $res;
+        }
+    
         function check_format($test){
-            $test = explode("===", $test);
-            array_shift($test); array_pop($test);
-
-            foreach ($test as $q){
-                if (empty(trim($q))) { return 0; }
-                $q_split = explode("\n", $q);
-
-                if (!empty(trim($q_split[0])) || !empty(trim($q_split[1])) || !empty(trim($q_split[3]))) { return 0; }
-                if (!empty(trim(end($q_split))) || !empty(trim($q_split[ count($q_split) - 1 ]))) { return 0; }
-                
-                for ($i = 4; $i < count($q_split) - 2; $i++){
-                       $split = explode(" ", $q_split[$i]);
-                    if ( strlen($split[0]) != 2 || $split[0][1] != ")" || empty($split[1])) { return 0; }
+            $test = explode("\n", $test);
+            $q_split = split_into_quesitons($test);
+            if (!$q_split) return 0;
+            
+            foreach ($q_split as $q){
+                if (count($q) > 1){
+                    if (trim($q[0]) != "===" || !empty(trim($q[1])) || empty(trim($q[2])) 
+                        || !empty(trim($q[3])) || !empty(trim(end($q)))) return 0;
+                        
+                        for ($i = 4; $i < count($q) - 1; $i++){
+                            $split = explode(" ", $q[$i]);
+                            if ( strlen($split[0]) != 2 || $split[0][1] != ")" || empty($split[1])) { return 0; }
+                    }
                 }
             } 
+            if (count(end($q_split)) != 1 && trim(end($q_split)[0]) != "===") return 0;
             return 1;
         }
 
