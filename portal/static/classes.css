@@ -1,119 +1,35 @@
-html, body{
-    height:100%;
-    width:100%;
-    margin:0;
-}
-
-.outer_container{
-    display:flex;
-    min-height:95%;
-    width:100%;
-}
-    
-
-    .sidebar{
-        width:8.1%;
-        background-color: slategrey;
-        display: flex; 
-        flex-direction: column;
-        padding-top: 40px;
-        box-sizing: border-box;
-        align-items: center;
-    }
-
-        .menu_text{
-            margin-top: 2px;
-            font-size: 1em;
-            text-align: center;
-        }
-    
-        .sidebar a{
-            margin: 0px;
-            margin-top:20px;
-            margin-right:8px;
-            display:flex;
-            align-items: center;
-            flex-direction:column;
-            width:100%;
-            
-            border-left:5px solid transparent;
-
-        }
-
-        .sidebar a:hover{
-            border-left:5px solid rgb(0, 0, 0);
-        }
-        
-        .sidebar a{
-            margin: 0px;
-            color: inherit;
-            text-decoration: none;
-        }
-        
-
-
-.content{
-    width: 100%;
-    min-height: 100vh;
-    background-color:rgb(165, 177, 187);
+.info{
+    width: 93%;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
-    
-    header{
-        display: flex;
-        flex-direction: row;
-        width:100%;
-        /* height: 3.7%; */
-        height: 5.7vh;
-        background-color: rgb(238, 231, 231);
-        align-items: center;
-        justify-content: center;
-    }
 
-    header h2 {
-        position:absolute;
-        left:45%;
-    }
+table{
+    margin-bottom:auto;
+    width:60%;
+    margin-top: 40px;
+    border-spacing: 0px;
+    table-layout: fixed;
+}
 
-    .logout{
-        position:absolute;
-        left: 96%;
-        top:2.0%
-    }
+table thead{
+    border: 1px solid;
+}
 
-    header span{
-        margin-left:87%;
-    }
+table thead td{
+    border-bottom: 1px solid rgb(238, 231, 231);
+}
 
+td {    
+    border-bottom: solid 1px #000; 
+    word-wrap: break-word;
+    min-height:30px;
+    padding:5px;
+    padding-top:15px;
+}
 
-    table{
-        margin-bottom:auto;
-        width:60%;
-        margin-top: 40px;
-        border-spacing: 0px;
-        table-layout: fixed;
-    }
-
-        table thead{
-            border: 1px solid;
-        }
-
-        table thead td{
-            border-bottom: 1px solid rgb(238, 231, 231);
-        }
-
-        td {    
-            border-bottom: solid 1px #000; 
-            word-wrap: break-word;
-            min-height:30px;
-            padding:5px;
-            padding-top:15px;
-        }
-        
-        tbody tr:last-child td{border:none}
+tbody tr:last-child td{border:none}
 
 
 .info p{
@@ -141,15 +57,11 @@ hr{
     margin-left: 10%;
 }
 
-.choose{margin-right:20px;
-}
+.choose{margin-right:20px;}
+
 select{
     /* height:15px; */
     margin:0px;
 }
 
-footer{
-    height:5%;
-    background-color: rgb(54, 67, 90);
-} 
 

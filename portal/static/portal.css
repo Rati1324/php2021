@@ -1,197 +1,110 @@
-html, body{
-    height:100%;
-    width:100%;
-    margin:0;
-}
+/* #region menu and body */
 
-.outer_container{
+.info{ 
+    width:75%;
+    height: 100%;
     display:flex;
-    /* flex-direction: row; */
-    min-height:95%;
-    width:100%;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: rgb(165, 177, 187);
+    overflow: hidden;
+    padding: 10px;
 }
 
-    .sidebar{
-        width:8%;
-        /* height:100%; */
-        background-color: slategrey;
-        display: flex; 
-        flex-direction: column;
-        padding-top: 40px;
-        box-sizing: border-box;
+.student_info{
+    display:flex;
+    width:100%;
+    margin-top:5px;
+    justify-content: space-between;
+}
+
+.classes_outer{
+    min-height:35%;
+    /* margin-top:20px; */
+}
+    .table_wrapper{
+        height:70%;
+        margin-top:5px;
+    }
+        .info table{
+            width:100%;
+            min-height:27%;
+            border-spacing: 0;
+        }
+
+        .info table thead td{
+            font-size: 1.2em;
+            width: 12%;
+            /* border: 1px solid; */
+            border-bottom: 1px solid rgb(78, 76, 76);
+        }
+
+        .info table tbody{
+            min-height: 80px;
+            font-size:1.2em;
+        }
+
+        .info table tbody td{
+            height:1px;
+        }
+
+        .info table tbody tr:hover{
+            background-color:rgb(73, 71, 87);
+        }
+        
+    .news{
+        display:flex;
+        height:25vh;
+        justify-content: center;
         align-items: center;
     }
 
-        .sidebar a{
-            margin: 0px;
-            margin-top:20px;
-            margin-right:8px;
-            display:flex;
-            align-items: center;
-            flex-direction:column;
-            width:100%;
-            border-left:5px solid transparent;
-
-        }
-
-        .sidebar a:hover{
-            border-left:5px solid rgb(0, 0, 0);
-        }
-        
-        .sidebar a{
-            margin: 0px;
-            color: inherit;
-            text-decoration: none;
-        }
-        
-
-
-.header_content{
-    display:flex;
-    flex-direction:column;
-    min-height:100%;
-    width:100%;
-}
-
-    header{
-        display:flex;
-        width:100%;
-        height:5%;
-        background-color: rgb(238, 231, 231);
-    }
-
-        .menu_text{
-            margin-top: 2px;
-            font-size: 1em;
-            text-align: center;
-        }
-    
-
-
-                                /* CONTENT */
-
-    .content{
-        min-height:95%;
-        display:flex;
-        flex-direction: row;
-    }
-
-        .info{ 
-            width:85%;
-            display:flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-sizing: border-box;
-            background-color: rgb(165, 177, 187);
+        .wrapper{
+            height:100%;
+            width:83%;
+            position:relative;
             overflow: hidden;
-            padding: 10px;
-            
+            display: flex;
+            align-items: center;
         }
 
-            .student_outer{
-            }
-
-            .student_info{
+            .images{
                 display:flex;
-                width:90%;
-                margin-top:5px;
-                /* border:1px solid; */
-                justify-content: space-between;
+                min-height:50%;
+                box-sizing: border-box;
+                position: absolute;
             }
 
-        .classes_outer{
-            min-height:35%;
-            /* margin-top:20px; */
-        }
-            .table_wrapper{
-                height:70%;
-                margin-top:5px;
-            }
-                .info table{
-                    width:100%;
-                    min-height:27%;
-                    border-spacing: 0;
-                }
-
-                .info table thead td{
-                    font-size: 1.2em;
-                    width: 10%;
-                    border-bottom: 1px solid rgb(78, 76, 76);
-                }
-
-                .info table tbody{
-                    min-height: 80px;
-                    font-size:1.2em;
-                }
-
-                .info table tbody td{
-                    height:1px;
-                }
-
-                .info table tbody tr:hover{
-                    background-color:rgb(73, 71, 87);
-                }
-
-        .news_outer{
-            
-        }
-                
-            .news{
-                display:flex;
-                height:25vh;
-                justify-content: center;
-                align-items: center;
-                /*  */
-            }
-
-                .wrapper{
+                .images div{
                     height:100%;
-                    width:83%;
-                    position:relative;
-                    overflow: hidden;
-                    /*  */
-                    display: flex;
-                    align-items: center;
+                    width:200px;
                 }
 
-                    .images{
-                        display:flex;
-                        min-height:50%;
-                        box-sizing: border-box;
-                        position: absolute;
-                    }
+                img{
+                    height:150px;
+                    width:180px;
 
-                        .images div{
-                            height:100%;
-                            width:200px;
-                        }
+                }
 
-                        img{
-                            height:150px;
-                            width:180px;
+                .left, .right{
+                    width:3%;
+                    display:flex;
+                    align-items: center;
+                    cursor: pointer;
+                }
 
-                        }
-
-                        .left, .right{
-                            width:3%;
-                            display:flex;
-                            align-items: center;
-                            cursor: pointer;
-                        }
-
-
-                        /* CALENDAR */
-
+    /* #endregion */
                     
-                        
-.calendar{
-    width:20%;
+    /* #region calendare  */
 
+.calendar{
+    width:18%;
     background-color: rgb(173, 172, 170);
 }
-
 .calendar table{
     width:100%;
+    height: 45%;
     background-color: rgb(132, 133, 106);
     border-spacing: 10px;
 }
@@ -227,7 +140,6 @@ html, body{
     list-style-type: numb;
 }
 
-/* MISC */
 .next,.prev{
     margin-top:5px;
     height:20px;
@@ -241,10 +153,14 @@ button{
     height:100%;   
 }
 
+
 button:hover{
     background-color:rgb(65, 113, 177)
 }
 
+/* #endregion */
+
+/* #region stuff */
 .header_texts{
     font-size:2em;
     max-height:45px;
@@ -265,7 +181,4 @@ hr{
 }
 
 
-footer{
-    height:5vh;
-    background-color: rgb(54, 67, 90);
-}
+/* #endregion */

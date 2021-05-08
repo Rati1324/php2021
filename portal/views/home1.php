@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="portal.css">
+    <link rel="stylesheet" href="../static/layout.css">
+    <link rel="stylesheet" href="../static/portal.css">
 </head>
+
 <body>
-
     <div class="outer_container">
-
-        <%- include("./partials/sidebar.ejs") %>
-        <div class="header_content">
-            <header>
-                
-            </header>
-
+        <div class="header_and_content">
+            <?php include('./partials/header.php') ?>
+            
             <div class="content">
-
+                <?php include('./partials/sidebar.php') ?> 
+                
                 <div class="info">
+                
                     <div class="student_outer">
                         <h2 class="header_texts"> Student </h2>
                         <hr>
@@ -57,20 +56,6 @@
                                     <td>Credits</td>
                                     <td>My Total Grade</td>
                                 </thead>
-                                <tbody>
-                                    <% if (class_list.length>0) { %>
-                                        <% class_list.forEach(elem => { %>
-                                                <tr>
-                                                    <td> <%= elem.Title %> </td>
-                                                    <td> <%= elem.Lecturer %> </td>
-                                                    <td> <%= elem.Credits %> </td>
-                                                    <td> 23 </td>
-                                                </tr>
-                                        <% }) %>
-                                    <% } %>
-                                    
-                                    
-                                </tbody>
 
                             </table>    
                         </div> 
@@ -153,74 +138,61 @@
                     </div> 
                     </div>
     
-                </div> 
+                </div>  
 
-           
+                <div class="calendar">
 
-                    <div class="calendar">
-
-                            <table>
-                    
-                                <thead>
-                                    <tr>
-                                        <td colspan="7" id="time"></td>
-                                    </tr>                
-                                    <tr class="year_month">
-                                        <td colspan="4" style="padding-left:20px" id="month">
-                                        <td colspan="4" style="padding-right:50px" id="year">
-                                        </td>
-                                    </tr>
-                                    <tr id="days">
-                    
-                                        <td>Sun</td>
-                                        <td>Mon</td>
-                                        <td>Tue</td>
-                                        <td>Wed</td>
-                                        <td>Thu</td>
-                                        <td>Fri</td>
-                                        <td>Sat</td>
-                                        
-                                    </tr>
-                    
-                                </thead>
-                    
-                                <tbody id="cal_tbody">
-                                    
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="4" onclick="prev()"><button>Previous</button></td>
-                                        <td colspan="3" onclick="next()"><button>Next</button></td>
-                                    </tr>
-                                </tfoot>
-                            </table> 
-
-                            <div class="events">
-
-                                <h2>Upcoming Events</h2>
-                                <ol>
-                                    <li>Quiz</li>
-                                    <li>Midterm</li>
-                                    <li>Presentation</li>
-                                </ol>
-
-                            </div>
-
-                            
-                    </div> 
-            
+                        <table>
                 
-            </div>
-            
+                            <thead>
+                                <tr>
+                                    <td colspan="7" id="time"></td>
+                                </tr>                
+                                <tr class="year_month">
+                                    <td colspan="4" style="padding-left:20px" id="month">
+                                    <td colspan="4" style="padding-right:50px" id="year">
+                                    </td>
+                                </tr>
+                                <tr id="days">
+                
+                                    <td>Sun</td>
+                                    <td>Mon</td>
+                                    <td>Tue</td>
+                                    <td>Wed</td>
+                                    <td>Thu</td>
+                                    <td>Fri</td>
+                                    <td>Sat</td>
+                                    
+                                </tr>
+                
+                            </thead>
+                
+                            <tbody id="cal_tbody">
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4" onclick="prev()"><button>Previous</button></td>
+                                    <td colspan="3" onclick="next()"><button>Next</button></td>
+                                </tr>
+                            </tfoot>
+                        </table> 
+
+                        <div class="events">
+                            
+
+                        </div>
+                         
+                </div>
+               
+            </div>   
+             
         </div> 
+        
     </div>
 
-    <footer>
-    </footer>
-    <script src="portal_scripts.js">
-        
-       
-        
+    <?php include('./partials/footer.php')?>
+    <script src="../static/portal_scripts.js ">
     </script>
 
 </body>

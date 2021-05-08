@@ -1,3 +1,40 @@
+<style>
+    .sidebar{
+        width:7%;
+        /* height:100%; */
+        background-color: slategrey;
+        display: flex; 
+        flex-direction: column;
+        padding-top: 30px;
+        box-sizing: border-box;
+        align-items: center;
+    }
+
+        .sidebar a{
+            box-sizing: border-box;
+            padding-top: 10px;
+            display:flex;
+            align-items: center;
+            flex-direction:column;
+            width:100%;
+            border-left:5px solid transparent;
+
+        }
+
+        .sidebar a:hover{
+            border-left:5px solid rgb(0, 0, 0);
+        }
+        
+        .sidebar a{
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .sidebar p{
+            margin: 0px;
+        }
+
+</style>
 <div class="sidebar">
     <a href="/portal">
         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
