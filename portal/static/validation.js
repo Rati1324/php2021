@@ -1,16 +1,19 @@
+pass = 1;
+
 function valid_email(email){
     var error = "";
-    if (!email.includes('@') || !email.includes(".") || email.length<6) 
+    if (!email.includes('@') || !email.includes(".") || email.length < 6) 
         error = 'Not a valid email';
 
     else if ( ( email.indexOf('@') > email.lastIndexOf('.') ) ||
     ( (email.length - email.lastIndexOf('.')) < 4 ) ){
         error = 'Not a valid email';
     }
+    if (error != "") pass = 0;
     setTimeout(() => document.querySelector("#email_errors").innerHTML = error, 1500);
 }
 
-function valid_pw(pw, pw_confirm) {
+function valid_pw(pw) {
     var upper_case = 0, lower_case = 0, symbol = 0;
     var error = "", strength = "";
     
@@ -22,11 +25,7 @@ function valid_pw(pw, pw_confirm) {
         else symbol = 1;
     }
 
-    if (pw != pw_confirm) {
-        error = "Passwords do not match"
-    }
-
-    else if (pw.length < 6){
+    if (pw.length < 6){
         strength = "Weak"
         error = "Minimum 6 characters";
     }
@@ -41,24 +40,29 @@ function valid_pw(pw, pw_confirm) {
     else if (lower_case && upper_case && symbol){
         strength = "Strong"
     }
+
     else {
         strength = "Weak"
         error = "Use symbols/numbers, upprecase and lowercase letters"
     }
-    console.log(strength);
-
-
+    if (error != "") pass = 0;
     setTimeout(() => {
         document.querySelector("#pw_errors").innerHTML = error;
         document.querySelector("#strength").innerHTML = strength;
-        document.querySelector(".strength_text").style.visibility = "visible";
-        }, 1000);
+        if (error != " ") {
+            document.querySelector(".strength_text").style.visibility = "visible";
+            document.querySelector(".strength_text").style.position = "static";
+        }
+    }, 1000);
     
 }
 
 function valid_phone(phone) {
     var error = ""
     if (isNaN(phone)) error = "Not a valid number";
+    if (error != "") pass = 0;
     setTimeout(() => document.querySelector("#phone_errors").innerHTML = error, 1500)
 }
 
+// if (pass) submit_btn.replace_with(submit_btn.cloneNode(true));
+// else submit_btn.addEventListener("click", (e) => e.preventDefault());

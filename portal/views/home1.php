@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+    if ($_SESSION['email']) echo "welcome " . $_SESSION['email'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

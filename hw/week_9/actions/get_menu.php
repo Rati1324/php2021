@@ -16,7 +16,7 @@
                     $table_keys .= "<td>" . $key . "</td>";
                 $table_values .= "<td>" . $value . "</td>";
             }
-
+            
             if (!$keys_finished) echo $table_keys;
             $keys_finished = 1;
             $table_values .= "</td>";

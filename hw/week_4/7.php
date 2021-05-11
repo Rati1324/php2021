@@ -12,5 +12,5 @@
         return $res;
     }
 
-    print_r(create_vector([], 2, 4));
+    print_r(create_vector([], 2, 3));
 ?>

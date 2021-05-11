@@ -27,7 +27,7 @@ ul{
 }
 
 li{
-    margin-bottom:10px;
+    margin-bottom:15px;
 }
 input{
     width: 85%;
@@ -49,6 +49,8 @@ button{
 
 .strength_text{
     visibility: hidden;
+    position: absolute;
+    margin-top: 5px;
 }
 .strength{
     color: red;
