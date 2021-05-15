@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 06:54 PM
+-- Generation Time: May 15, 2021 at 03:49 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -62,19 +62,16 @@ CREATE TABLE `menu` (
   `title` varchar(50) NOT NULL,
   `meta_k` varchar(200) NOT NULL,
   `meta_d` text NOT NULL,
-  `text` text NOT NULL
+  `text2` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`id`, `title`, `meta_k`, `meta_d`, `text`) VALUES
-(11, 'main', 'main page', 'main page desc', '??'),
-(12, 'news', 'news keyword', 'news page', '?'),
-(13, 'about', 'about keyword', 'about desc', '?'),
-(14, 'contact', 'contact_k', 'contact_desc', '?'),
-(15, 'page_1', 'k', 'd', '?');
+INSERT INTO `menu` (`id`, `title`, `meta_k`, `meta_d`, `text2`) VALUES
+(14, 'test2', 'contact_k', 'contact_desc', 'texst'),
+(15, 'page_1', 'k', 'd', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Etiam tempor orci eu lobortis. Quis ipsum suspendisse ultrices gravida dictum fusce ut placerat. Aliquam nulla facilisi cras fermentum odio eu feugiat. Varius sit amet mattis vulputate enim nulla. Ultricies lacus sed turpis tincidunt. ');
 
 -- --------------------------------------------------------
 
