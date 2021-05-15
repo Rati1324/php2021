@@ -12,6 +12,7 @@
         
         $query = "INSERT INTO data1 VALUES(NULL, '$title', '$date', '$type', '$photo', '$text', '$author', '$desc', '$meta_k', '$meta_d')";
         mysqli_query($conn, $query);
+        mysqli_close($conn);
     }
 ?>
 

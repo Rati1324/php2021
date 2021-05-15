@@ -13,6 +13,7 @@
             <li> <a href="?action=student">Insert Into Student</a> </li>
             <li> <a href="?action=data">Insert Into Data</a> </li>
             <li> <a href="?action=get_menu">Menu Queries</a> </li>
+            <li> <a href="?action=view_menu">edit/remove Menu Rows</a> </li>
         </ul>
 
         <?php
@@ -27,6 +28,8 @@
                         include('actions/data_insert.php'); break;
                     case "get_menu":
                         include('actions/get_menu.php'); break;
+                    case "view_menu":
+                        include('actions/view.php'); break;
                 }
             }
             

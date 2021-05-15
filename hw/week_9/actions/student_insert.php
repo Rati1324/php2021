@@ -11,6 +11,7 @@
                     '$pw', '$gender')";
 
         mysqli_query($conn, $query);
+        mysqli_close($conn);
     }
 ?>
 
@@ -20,7 +21,7 @@
     <input type="text" name="last_name" placeholder="last_name"> <br>
     <input type="text" name="age" placeholder="age"> <br>
     <input type="text" name="pw" placeholder="password"> <br> 
-    <input type="text" name="gender" placeholder="gender                                    "> <br> 
+    <input type="text" name="gender" placeholder="gender"> <br> 
     <input type="hidden" name="reg_date" value="<?php echo date('y-m-d') ?>"> <br> 
 
     <button name="send">Send</button>

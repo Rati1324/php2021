@@ -5,8 +5,8 @@
         $meta_d = $_POST['meta_d'];
         $text = $_POST['text'];
         $query = "INSERT INTO menu VALUES(NULL, '$title', '$meta_k', '$meta_d', '$text')";
-
         mysqli_query($conn, $query);
+        mysqli_close($conn);
     }
 ?>
             

@@ -17,3 +17,23 @@ table{
 table td{
     border: 1px solid;
 }
+
+.menu{
+    border: 1px solid;
+    margin-bottom: 10px;
+}
+
+.title{
+    border-bottom: 1px solid;
+    padding-left: 10px;
+}
+
+.edit_wrapper{
+    padding-left: 75%;
+}
+
+.edit{
+    width: 300px;
+    margin: 200px auto;
+    
+}
