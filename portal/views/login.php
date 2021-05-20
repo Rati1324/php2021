@@ -13,16 +13,10 @@
 </head>
 <?php 
     if (isset($_POST['submit'])) {
-        $servername = "localhost";
-        $username = "gau";
-        $password = "gau123456";
-        $dbname = "portal";
-
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        include('../static/conn.php');
         $query = "SELECT email, pw FROM student";
         $students = mysqli_query($conn, $query);
-        print_r($students);
-
+        print_r($students); 
         if (mysqli_num_rows($students) > 0) {
             while ($row = mysqli_fetch_assoc($students)) {
                 if ($_POST['email'] === $row['email'] && $_POST['password'] == $row['pw']) {
@@ -31,6 +25,7 @@
                 }
             }
         }
+        mysqli_close($conn);
     }
 ?>
 <body>

@@ -1,7 +1,12 @@
 <?php 
     session_start();
-    if ($_SESSION['email']) echo "welcome " . $_SESSION['email'];
+    include('../static/conn.php');
+    
+    if (isset($_SESSION['email'])) {
+        $email = $_SESSION['email'];
+        include('../db/student_info.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,31 +24,29 @@
             
             <div class="content">
                 <?php include('./partials/sidebar.php') ?> 
-                
                 <div class="info">
-                
                     <div class="student_outer">
                         <h2 class="header_texts"> Student </h2>
                         <hr>
                         <div class="student_info">
                             <div>
-                                <p>Rati Mtsituri</p>
-                                <p>Computer Science</p>
+                                <p> <?=$student_info['first_name'] . " " . $student_info['last_name']?> </p>
+                                <p> <?=$school_res?> </p>
                             </div>
                             
                             <div>
-                                <p>Year: 3</p>
-                                <p>Semester: 1</p>
+                                <p>Year: <?=$student_info['year']?></p>
+                                <p>Semester: <?=$student_info['semester']?></p>
                             </div>
                             
                             <div>
                                 <p>GPA: 0.3</p>
-                                <p>Credits: 53</p>
+                                <p>Credits: <?=$student_info['credits']?></p>
                             </div>
                             
                             <div>
                                 <p>Attendance: 68%</p>
-                                <p>Fees: 0</p>
+                                <p>Fees: <?=$student_info['fees']?></p>
                             </div>
                             
                         </div>
@@ -58,9 +61,20 @@
                                     <td>Name</td>
                                     <td>Lecturer</td>
                                     <td>Credits</td>
-                                    <td>My Total Grade</td>
+                                    <td>Code</td>
                                 </thead>
-
+                                <tbody>
+                                    <?php 
+                                        include ('../db/get_classes.php');
+                                        foreach ($classes as $c){
+                                            echo "<tr>";
+                                            foreach ($c as $v){
+                                                echo "<td>$v</td>";
+                                            }
+                                            echo "</tr>";
+                                        }
+                                    ?>
+                                </tbody>
                             </table>    
                         </div> 
                     </div> 
@@ -126,9 +140,6 @@
                                         news!!!!
                                     </span>
                                 </div>
-
-                                
-
                             </div>
 
                         </div> 
@@ -173,18 +184,17 @@
                 
                             <tbody id="cal_tbody">
                                 
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="4" onclick="prev()"><button>Previous</button></td>
-                                    <td colspan="3" onclick="next()"><button>Next</button></td>
-                                </tr>
-                            </tfoot>
-                        </table> 
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" onclick="prev()"><button>Previous</button></td>
+                                        <td colspan="3" onclick="next()"><button>Next</button></td>
+                                    </tr>
+                                </tfoot>
+                            </table> 
 
                         <div class="events">
                             
-
                         </div>
                          
                 </div>
@@ -201,3 +211,4 @@
 
 </body>
 </html>
+<?php }?>

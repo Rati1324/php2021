@@ -14,16 +14,15 @@
 
 .student_info{
     display:flex;
-    width:100%;
+    width:98%;
     margin-top:5px;
     justify-content: space-between;
 }
 
 .classes_outer{
     min-height:35%;
-    /* margin-top:20px; */
 }
-    .table_wrapper{
+.table_wrapper{
         height:70%;
         margin-top:5px;
     }
@@ -33,23 +32,22 @@
             border-spacing: 0;
         }
 
-        .info table thead td{
-            font-size: 1.2em;
-            width: 12%;
-            /* border: 1px solid; */
+        .info .table_wrapper table thead td{
+            font-size: 1em;
+            width: 30%;
             border-bottom: 1px solid rgb(78, 76, 76);
         }
 
-        .info table tbody{
+        .info .table_wrapper table tbody{
             min-height: 80px;
-            font-size:1.2em;
+            font-size:1.1em;
         }
 
-        .info table tbody td{
+        .info .table_wrapper table tbody td{
             height:1px;
         }
 
-        .info table tbody tr:hover{
+        .info .table_wrapper table tbody tr:hover{
             background-color:rgb(73, 71, 87);
         }
         
