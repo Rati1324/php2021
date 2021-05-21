@@ -15,7 +15,6 @@ table{
 }
 
 table thead{
-    background-color:rgb(119, 106, 106);
 }
 
 
@@ -25,6 +24,7 @@ td {
     height:35px;
     /* padding:5px; */
     /* padding-top:15px; */
+
 }
 
 tbody tr:last-child td{border:none}
@@ -33,6 +33,7 @@ tbody tr:last-child td{border:none}
     margin:0px;
     font-size:1.7em;
 }
+
 
 hr{
     width:100%;
@@ -61,20 +62,17 @@ select{
     margin:0px;
 }
 
-.group{
-    background-color: bisque;
-    display:none;
+.class_info{
+    background-color: rgb(89, 126, 126);
+}
+
+.group_head{
+    background-color: rgb(190, 167, 167);
+}
+.group_head td{
+    height: 20px;
 }
 
 .group td{
-    height: 15px;
-}
-
-.group_title{
-    background-color: rgb(226, 177, 116);
-    display:none;
-}
-
-.group_title td{
-    height: 15px;
+    height: 20px;
 }

@@ -1,0 +1,8 @@
+.container{
+    border:solid 2px grey;
+    width: 400px;
+    min-height: 200px;
+    padding: 20px;
+    margin: 20px auto;
+    background-color: beige;
+}
