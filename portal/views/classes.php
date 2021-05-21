@@ -16,6 +16,7 @@ if (isset($_SESSION['email'])) {
         <title>Document</title>
         <link rel="stylesheet" href="../static/classes.css">
         <link rel="stylesheet" href="../static/layout.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     </head>
 
 
@@ -40,7 +41,6 @@ if (isset($_SESSION['email'])) {
                             </select>
                             <button class="search_btn" id="search_btn">Search</button>
                         </div>
-
                         <table>
                             <thead>
                                 <tr>
@@ -50,32 +50,55 @@ if (isset($_SESSION['email'])) {
                                     <td> Code </td>
                                 </tr>
                             </thead>
-
+                            
                             <tbody>
                                 <?php
                                 foreach ($classes as $c) {
                                     echo "<tr>";
                                     foreach ($c as $k => $v) {
-                                        if ($k == "group") { ?>
-                                            <tr>
-                                                <td>sad</td>
-                                            </tr>
-                                <?php } else
-                                            echo "<td>$v</td>";
+                                        if ($k == "class_id") {
+                                            echo "<td> <button id='group_appear'> Groups </button> </td>";
+                                            echo "<tr class='group_title'>";
+                                                echo "<td>Day</td>";
+                                                echo "<td>Time</td>";
+                                                echo "<td>Group</td>";
+                                                echo "<td>Room</td>";
+                                            echo "</tr>";
+                                            foreach ($groups[$v] as $g) {
+                                                
+                                                echo "<tr class='group'>";
+                                                    echo "<td>" . $g['day'] . "</td>";
+                                                    echo "<td>" . $g['time'] . "</td>";
+                                                    echo "<td>" . $g['group'] . "</td>";
+                                                    echo "<td>" . $g['room'] . "</td>";
+                                                echo "</tr>";
+                                            }
+                                        } 
+                                        else
+                                            echo "<td class='class_info'>$v</td>";
+                                            
                                     }
                                     echo "</tr>";
                                 }
                                 ?>
                             </tbody>
-
                         </table>
+                        <button class="butt">butt</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            $("#group_appear").click(() => {
+                $(".group").css("display", "table-row");
+                $(".group_title").css("display", "table-row");
+            })
+        </script>
         <?php include('./partials/footer.php') ?>
 
     </body>
 
     </html>
+
 <?php } ?>
