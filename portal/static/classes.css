@@ -14,18 +14,15 @@ table{
     border-spacing: 0px;
 }
 
-table thead{
-}
-
-
 td {    
     border-bottom: solid 1px #000; 
     word-wrap: break-word;
     height:35px;
     /* padding:5px; */
     /* padding-top:15px; */
-
 }
+
+
 
 tbody tr:last-child td{border:none}
 
@@ -33,7 +30,6 @@ tbody tr:last-child td{border:none}
     margin:0px;
     font-size:1.7em;
 }
-
 
 hr{
     width:100%;
