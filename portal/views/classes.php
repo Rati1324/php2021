@@ -80,22 +80,22 @@ if (isset($_SESSION['email'])) {
                                                     <td>Room</td>
                                                     <td></td>
                                                 </tr>
-                                            <?php
-                                            foreach ($groups[$class_id] as $g) {
-                                                echo "<tr name='group_$class_id'>";
+                                            <?php foreach ($groups[$class_id] as $g) { print_r($g)?>
 
-                                                foreach ($g as $k => $i) {
-                                                    if ($k != 'id') {
-                                                        echo "<td>$i</td>";
-                                                    }
-                                                }
-                                                echo "<td> <button> Enroll </button> </td>";
-                                                echo "</tr>";
-                                            }
-                                            echo "</table></td>
-                                    </tr>";
-                                        }
-                                            ?>
+                                                <tr name='group_$class_id'>
+
+                                                <?php foreach ($g as $k => $i) {
+                                                    if ($k != 'id') { ?>
+                                                        <td> <?=$i?> </td>
+                                                    <?php } ;
+                                                } ?>
+                                                <td> <button id="enroll_<?=$class_id?>"> Enroll </button> </td>
+                                                </tr>
+                                            <?php } ?>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -113,6 +113,9 @@ if (isset($_SESSION['email'])) {
                     else elem.style.display = 'none';
                 })
             })
+
+
+            
         </script>
         <?php include('./partials/footer.php') ?>
 

@@ -3,8 +3,8 @@
     include('../static/conn.php');
     
     if (isset($_SESSION['email'])) {
-        $email = $_SESSION['email'];
         include('../db/student_info.php');
+        $student_info = get_info($conn, $_SESSION['email']);
 ?>
 
 <!DOCTYPE html>
@@ -30,23 +30,23 @@
                         <hr>
                         <div class="student_info">
                             <div>
-                                <p> <?=$student_info['first_name'] . " " . $student_info['last_name']?> </p>
+                                <p> <?=$student_info[0]['first_name'] . " " . $student_info[0]['last_name']?> </p>
                                 <p> <?=$school_res?> </p>
                             </div>
                             
                             <div>
-                                <p>Year: <?=$student_info['year']?></p>
-                                <p>Semester: <?=$student_info['semester']?></p>
+                                <p>Year: <?= $student_info[0]['year']?></p>
+                                <p>Semester: <?= $student_info[0]['semester']?></p>
                             </div>
                             
                             <div>
                                 <p>GPA: 0.3</p>
-                                <p>Credits: <?=$student_info['credits']?></p>
+                                <p>Credits: <?=$student_info[0]['credits']?></p>
                             </div>
                             
                             <div>
                                 <p>Attendance: 68%</p>
-                                <p>Fees: <?=$student_info['fees']?></p>
+                                <p>Fees: <?= $student_info[0]['fees']?></p>
                             </div>
                             
                         </div>
