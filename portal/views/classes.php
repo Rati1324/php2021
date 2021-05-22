@@ -1,9 +1,20 @@
 <?php
 session_start();
-include('../static/conn.php');
 
 if (isset($_SESSION['email'])) {
-    include('../db/get_all_classes.php');
+    include('../db/db.php');
+    $db = new Database();
+
+    $student_id = ($db->find_id($_SESSION['email']));
+    $classes = $db->classes();
+    $groups = $db->classes();
+    // print_r($classes);
+    print_r($groups);
+    foreach ($groups[2] as $g){
+        print_r($g);
+        echo "<br>";
+    }
+    exit();
 
 ?>
 
@@ -89,7 +100,7 @@ if (isset($_SESSION['email'])) {
                                                         <td> <?=$i?> </td>
                                                     <?php } ;
                                                 } ?>
-                                                <td> <button id="enroll_<?=$class_id?>"> Enroll </button> </td>
+                                                <td> <button name="<?=$student_id?>" id="enroll_<?=$class_id?>"> Enroll </button> </td>
                                                 </tr>
                                             <?php } ?>
                                             </table>

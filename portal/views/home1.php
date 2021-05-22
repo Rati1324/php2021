@@ -4,7 +4,7 @@
     
     if (isset($_SESSION['email'])) {
         include('../db/student_info.php');
-        $student_info = get_info($conn, $_SESSION['email']);
+        $student_info = student_info($conn, $_SESSION['email']);
 ?>
 
 <!DOCTYPE html>
