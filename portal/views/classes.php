@@ -61,41 +61,41 @@ if (isset($_SESSION['email'])) {
                                     foreach ($c as $k => $v) {
                                         if ($k != "class_id")
                                             echo "<td class='class_info'>$v</td>";
-                                    }?>
-                                        <td> 
-                                            <button id=<?=$class_id?> class='group_appear'> 
-                                                View groups 
-                                            </button> 
-                                        </td>
+                                    } ?>
+                                    <td class='class_info'>
+                                        <button id=<?= $class_id ?> class='group_appear'>
+                                            View groups
+                                        </button>
+                                    </td>
                                     </tr>
 
-                                    <tr name='group_head_<?=$class_id?>' style='display:none'>
+                                    <tr id='nested_table_<?= $class_id ?>' style="display:none">
                                         <td></td>
-                                        <td>Day</td>
-                                        <td>Time</td>
-                                        <td>Group</td>
-                                        <td>Room</td>
-                                    </tr>
-
-                                    <?php
-                                    // try table nesting for better layout if not then idc
-                                    foreach($groups[$class_id] as $g){
-                                        echo "<tr name='group_$class_id' style='display:none'>";
-                                        echo "<td></td>";
-                                        foreach($g as $k => $i){
-                                            if ($k!='id'){
-                                                echo "<td>
-                                                <table>
-                                                <tr>
-                                                    <td>$i</td>
+                                        <td colspan="4">
+                                            <table class="group_table">
+                                                <tr name='group_head_<?= $class_id ?>'>
+                                                    <td>Group</td>
+                                                    <td>Day</td>
+                                                    <td>Time</td>
+                                                    <td>Room</td>
+                                                    <td></td>
                                                 </tr>
-                                                </table></td>";
+                                            <?php
+                                            foreach ($groups[$class_id] as $g) {
+                                                echo "<tr name='group_$class_id'>";
+
+                                                foreach ($g as $k => $i) {
+                                                    if ($k != 'id') {
+                                                        echo "<td>$i</td>";
+                                                    }
+                                                }
+                                                echo "<td> <button> Enroll </button> </td>";
+                                                echo "</tr>";
                                             }
+                                            echo "</table></td>
+                                    </tr>";
                                         }
-                                        echo "</tr>";
-                                    }
-                                }
-                                ?>
+                                            ?>
                             </tbody>
                         </table>
                     </div>
@@ -106,16 +106,11 @@ if (isset($_SESSION['email'])) {
         <script>
             var buttons = document.querySelectorAll(".group_appear");
             buttons.forEach((b) => {
-                b.addEventListener('click', () => {
-                    if (document.getElementsByName("group_head_" + b.id)[0].style.display != 'table-row') {
-                        var elems = document.getElementsByName("group_" + b.id);
-                        elems.forEach((x) => x.style.display = 'table-row');
-                        document.getElementsByName("group_head_" + b.id)[0].style.display = 'table-row';
-                    } else {
-                        var elems = document.getElementsByName("group_" + b.id);
-                        elems.forEach((x) => x.style.display = 'none');
-                        document.getElementsByName("group_head_" + b.id)[0].style.display = 'none';
-                    }
+                b.addEventListener('click', (e) => {
+                    var elem = document.querySelector("#nested_table_" + b.id);
+                    if (elem.style.display == 'none') 
+                        elem.style.display = 'table-row';
+                    else elem.style.display = 'none';
                 })
             })
         </script>
