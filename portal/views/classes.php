@@ -70,6 +70,7 @@ if (isset($_SESSION['email'])) {
                                     </tr>
 
                                     <tr name='group_head_<?=$class_id?>' style='display:none'>
+                                        <td></td>
                                         <td>Day</td>
                                         <td>Time</td>
                                         <td>Group</td>
@@ -77,10 +78,19 @@ if (isset($_SESSION['email'])) {
                                     </tr>
 
                                     <?php
+                                    // try table nesting for better layout if not then idc
                                     foreach($groups[$class_id] as $g){
                                         echo "<tr name='group_$class_id' style='display:none'>";
-                                        foreach($g as $i){
-                                            echo "<td>$i</td>";
+                                        echo "<td></td>";
+                                        foreach($g as $k => $i){
+                                            if ($k!='id'){
+                                                echo "<td>
+                                                <table>
+                                                <tr>
+                                                    <td>$i</td>
+                                                </tr>
+                                                </table></td>";
+                                            }
                                         }
                                         echo "</tr>";
                                     }
