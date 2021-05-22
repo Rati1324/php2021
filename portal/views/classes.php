@@ -1,21 +1,18 @@
 <?php
 session_start();
-
 if (isset($_SESSION['email'])) {
     include('../db/db.php');
     $db = new Database();
-
-    $student_id = ($db->find_id($_SESSION['email']));
-    $classes = $db->classes();
-    $groups = $db->classes();
-    // print_r($classes);
-    print_r($groups);
-    foreach ($groups[2] as $g){
-        print_r($g);
-        echo "<br>";
+    if (isset($_POST['atten']) && isset($_POST['student'])){
+        echo $_POST['atten'];
+        echo $_POST['student'];
+        $db->enroll($_POST['student'], $_POST['atten']);
+        exit();
     }
-    exit();
-
+    $student_id = $db->find_id($_SESSION['email']);
+    $classes = $db->classes();
+    $groups = $db->groups();
+    
 ?>
 
     <!DOCTYPE html>
@@ -79,7 +76,7 @@ if (isset($_SESSION['email'])) {
                                         </button>
                                     </td>
                                     </tr>
-                                    
+
                                     <tr id='nested_table_<?= $class_id ?>' style="display:none">
                                         <td></td>
                                         <td colspan="4" class="group_table_col">
@@ -91,42 +88,60 @@ if (isset($_SESSION['email'])) {
                                                     <td>Room</td>
                                                     <td></td>
                                                 </tr>
-                                            <?php foreach ($groups[$class_id] as $g) { print_r($g)?>
+                                                <?php foreach ($groups[$class_id] as $g) { ?>
 
-                                                <tr name='group_$class_id'>
+                                                    <tr name='group_$class_id'>
 
-                                                <?php foreach ($g as $k => $i) {
-                                                    if ($k != 'id') { ?>
-                                                        <td> <?=$i?> </td>
-                                                    <?php } ;
-                                                } ?>
-                                                <td> <button name="<?=$student_id?>" id="enroll_<?=$class_id?>"> Enroll </button> </td>
-                                                </tr>
-                                            <?php } ?>
+                                                        <?php foreach ($g as $k => $i) {
+                                                            if ($k != 'id' && $k != 'atten_id') { ?>
+                                                                <td> <?= $i ?> </td>
+                                                        <?php }
+                                                        } ?>
+                                                        <td> <button class="enroll" name=<?=$student_id['id']?> id=<?= $g['atten_id'] ?>> Enroll </button> </td>
+                                                    </tr>
+                                                <?php } ?>
                                             </table>
                                         </td>
                                     </tr>
-                                    <?php } ?>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
-
         <script>
             var buttons = document.querySelectorAll(".group_appear");
             buttons.forEach((b) => {
-                b.addEventListener('click', (e) => {
+                b.addEventListener('click', () => {
                     var elem = document.querySelector("#nested_table_" + b.id);
-                    if (elem.style.display == 'none') 
+                    if (elem.style.display == 'none')
                         elem.style.display = 'table-row';
                     else elem.style.display = 'none';
                 })
+
             })
 
-
-            
+            var enroll_btn = document.querySelectorAll(".enroll");
+            enroll_btn.forEach((b) => {
+                b.addEventListener('click', () => {
+                    $.ajax({
+                        type: "POST",
+                        url: './classes.php',
+                        data: {
+                            'atten': b.id,
+                            'student': b.name
+                        },
+                        success: function(data) {
+                            alert("Enrolled successfully")
+                        },
+                        error: (xhr, status, error) => {
+                            console.error(xhr);
+                        }
+                    })
+                })
+            })
         </script>
         <?php include('./partials/footer.php') ?>
 

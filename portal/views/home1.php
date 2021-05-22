@@ -1,10 +1,9 @@
 <?php 
     session_start();
-    include('../static/conn.php');
-    
+    include('../db/db.php');
+    $db = new Database();
     if (isset($_SESSION['email'])) {
-        include('../db/student_info.php');
-        $student_info = student_info($conn, $_SESSION['email']);
+        $student_info = $db->student_info($_SESSION['email']);
 ?>
 
 <!DOCTYPE html>

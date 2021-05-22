@@ -15,26 +15,23 @@
             $this->conn = new mysqli($servername, $username, $password, $dbname);
         }
 
-        function student_info($conn, $email){
-            $info_query = "SELECT * FROM student WHERE email = '$email'";
-            $info_res = mysqli_query($conn, $info_query);
+        function student_info($email){
+            $info_query = "SELECT * FROM student_info WHERE email = '$email'";
+            $info_res = mysqli_query($this->conn, $info_query);
             $student_info = mysqli_fetch_assoc($info_res);
-            $school_query = "SELECT name FROM school JOIN student
-                ON school.school_id = student.school_id
-                WHERE student.email = '$email'
-                ";
-            $school_query = mysqli_query($conn, $school_query);
-            $school_res = mysqli_fetch_assoc($school_query)['name'];
-            return [$student_info, $school_res];
+
+            mysqli_close($this->conn);
+            return $student_info;
         }
 
         public function find_id($email){
             $query = "SELECT id FROM student WHERE email = '$email'";
 
-            $res = $this->conn->query($query);
-            if ($res->num_rows > 0)
-                return $res->fetch_assoc();
-                    
+            $res = mysqli_query($this->conn, $query);
+            if (mysqli_num_rows($res) > 0)
+                $row = mysqli_fetch_assoc($res);
+            mysqli_close($this->conn);
+            return $row;
         }
 
         public function classes(){
@@ -48,9 +45,10 @@
                         $classes[$row['class_id']] = $row;
                 }
             }
+            mysqli_close($this->conn);
             return $classes;
         }
-
+        
         public function groups(){
             $query_group = "SELECT * FROM groups";
             $res_group = mysqli_query($this->conn, $query_group);
@@ -61,6 +59,14 @@
                     else $groups[$row['id']] = [$row];
                 }
             }
+            mysqli_close($this->conn);
             return $groups;
         }
+
+        public function enroll($stud_id, $atten_id){
+            $query = "INSERT INTO student_atten VALUES('$stud_id', '$atten_id')";
+            mysqli_query($this->conn, $query);
+            mysqli_close($this->conn);
+        }
+
     }
