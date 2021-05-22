@@ -68,10 +68,10 @@ if (isset($_SESSION['email'])) {
                                         </button>
                                     </td>
                                     </tr>
-
+                                    
                                     <tr id='nested_table_<?= $class_id ?>' style="display:none">
                                         <td></td>
-                                        <td colspan="4">
+                                        <td colspan="4" class="group_table_col">
                                             <table class="group_table">
                                                 <tr name='group_head_<?= $class_id ?>'>
                                                     <td>Group</td>

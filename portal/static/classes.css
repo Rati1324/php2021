@@ -8,7 +8,7 @@
 }
 
 table{
-    width:60%;
+    width:50%;
     min-height:50%;
     margin-top: 40px;
     border-spacing: 0px;
@@ -22,13 +22,19 @@ td {
     /* padding-top:15px; */
 }
 
-.group_table{
-    border: 1px solid;
-    margin:0;
-    width: 405px;
+tbody tr:last-child td{border:none}
+
+.group_table_col{
+    width: 20px;
+    border: none;
 }
 
-tbody tr:last-child td{border:none}
+.group_table{
+    border: none;
+    margin:0;
+    width: 78%;
+}
+
 .group_table td{
     border-bottom: 1px solid;
     /* border-left: 1px solid; */
