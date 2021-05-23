@@ -3,7 +3,10 @@
     include('../db/db.php');
     $db = new Database();
     if (isset($_SESSION['email'])) {
-        $student_info = $db->student_info($_SESSION['email']);
+        $email = $_SESSION['email'];
+        $student_info = $db->student_info($email);
+        $classes = $db->student_classes($email);
+        $db->close();
 ?>
 
 <!DOCTYPE html>
@@ -29,23 +32,23 @@
                         <hr>
                         <div class="student_info">
                             <div>
-                                <p> <?=$student_info[0]['first_name'] . " " . $student_info[0]['last_name']?> </p>
-                                <p> <?=$school_res?> </p>
+                                <p> <?=$student_info['first_name'] . " " . $student_info['last_name']?> </p>
+                                <p> <?= $student_info['school_name']?> </p>
                             </div>
                             
                             <div>
-                                <p>Year: <?= $student_info[0]['year']?></p>
-                                <p>Semester: <?= $student_info[0]['semester']?></p>
+                                <p>Year: <?= $student_info['year']?></p>
+                                <p>Semester: <?= $student_info['semester']?></p>
                             </div>
                             
                             <div>
                                 <p>GPA: 0.3</p>
-                                <p>Credits: <?=$student_info[0]['credits']?></p>
+                                <p>Credits: <?=$student_info['credits']?></p>
                             </div>
                             
                             <div>
                                 <p>Attendance: 68%</p>
-                                <p>Fees: <?= $student_info[0]['fees']?></p>
+                                <p>Fees: <?= $student_info['fees']?></p>
                             </div>
                             
                         </div>
@@ -57,18 +60,21 @@
                         <div class="table_wrapper">
                             <table>
                                 <thead>
-                                    <td>Name</td>
-                                    <td>Lecturer</td>
-                                    <td>Credits</td>
-                                    <td>Code</td>
+                                    <?php foreach($classes[0] as $k => $v){ 
+                                        if ($k!='Email')
+                                            echo "<td>$k</td>";
+                                        }
+                                    ?>
+
                                 </thead>
                                 <tbody>
                                     <?php 
-                                        include ('../db/get_classes.php');
                                         foreach ($classes as $c){
                                             echo "<tr>";
-                                            foreach ($c as $v){
-                                                echo "<td>$v</td>";
+                                            foreach ($c as $k => $v){
+                                                if ($k != 'Email'){
+                                                    echo "<td>$v</td>";
+                                                }
                                             }
                                             echo "</tr>";
                                         }
