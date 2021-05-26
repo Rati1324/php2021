@@ -1,0 +1,58 @@
+
+.content{
+    background-color: rgb(165, 177, 187);
+    /* height: 90%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info{
+    background-color: rgb(106, 127, 165);
+    width:25%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 50%;
+    padding:30px;
+}
+
+.info h3{
+    text-align: center;
+    margin:0px
+}
+
+ul{
+    list-style-type: none;
+}
+
+li{
+    margin-bottom:15px;
+}
+input{
+    width: 85%;
+    height: 25px;
+    border-radius: 4px
+}
+
+.name_input input{
+    width: 41%;
+}
+
+button{
+    width:30%;
+}
+
+.errors{
+    color: rgb(219, 17, 17);
+}
+
+.strength_text{
+    visibility: hidden;
+    position: absolute;
+    margin-top: 5px;
+}
+.strength{
+    color: red;
+}
+
