@@ -3,23 +3,14 @@ session_start();
 if (isset($_SESSION['email'])) {
     include('../db/db.php');
     $db = new Database();
-    if (isset($_POST['atten']) && isset($_POST['student'])){
-        echo $_POST['atten'] . " " . $_POST['student'];;
-        
-        $db->enroll($_POST['student'], $_POST['atten']);
-        exit();
-    }
-    
     $student_id = $db->find_id($_SESSION['email']);
     $classes = $db->classes();
     $groups = $db->groups();
-    $student_classes = $db->student_classes($_SESSION['email']);
-    foreach($student_classes as $c){
-        print_r($c);
-    }
-    echo "<br>";
-    foreach($groups as $g){
-        print_r($g);
+    $student_attens = $db->student_classes($_SESSION['email']);
+
+    $student_atten_ids = [];
+    foreach($student_attens as $s_g){
+        $student_atten_ids [] = $s_g['atten_id'];
     }
 ?>
 
@@ -71,6 +62,7 @@ if (isset($_SESSION['email'])) {
                             <tbody>
                                 <?php
                                 $roll = "Enroll";
+                                $function = 'enroll(this.name, this.id)';
                                 foreach ($classes as $c) {
                                     $class_id = $c['class_id'];
                                     echo "<tr>";
@@ -98,13 +90,21 @@ if (isset($_SESSION['email'])) {
                                                 </tr>
                                                 <?php foreach ($groups[$class_id] as $g) { ?>
                                                     <tr name='group_$class_id'>
-                                                        <?php foreach ($g as $k => $i) {
-                                                            if ($k != 'id' && $k != 'atten_id') { ?>
-                                                                <td> <?= $i ?> </td>
-                                                        <?php }
-                                                        } ?>
-                                                        <td> <button class="enroll" name=<?=$student_id['id']?> id=<?= $g['atten_id']?> onclick='enroll(this.name, this.id)'> <?=$roll?> </button> </td>
-                                                    <i></i></tr>
+                                                        <?php foreach ($g as $k => $v) {
+                                                            if ($k != 'id' && $k != 'atten_id') { 
+                                                                if (in_array($g['atten_id'], $student_atten_ids)){
+                                                                    echo "<td> $v </td>";
+                                                                    $roll = "Unenroll";
+                                                                    $function = 'unenroll(this.name, this.id)';
+                                                                }
+                                                                else{
+                                                                    $roll = "Enroll";
+                                                                    echo "<td> $v </td>";
+                                                                }
+                                                            }
+                                                         }?>
+                                                        <td> <button class="enroll" name=<?=$student_id['id']?> id=<?= $g['atten_id']?> onclick=enroll(this.name,this.id)> <?=$roll?> </button> </td>
+                                                    </tr>
                                                 <?php } ?>
                                             </table>
                                         </td>
@@ -127,34 +127,37 @@ if (isset($_SESSION['email'])) {
                 })
             })
 
-            function enroll (b_name, b_id){
+            function enroll (stud_id, atten_id){
                 $.ajax({
                     type: "POST",
-                    url: './classes.php',
+                    url: 'enroll_unenroll.php',
                     data: {
-                        'atten': b_name,
-                        'student': b_id,
+                        'atten': atten_id,
+                        'student': stud_id,
                         'action': 'enroll',
                     },
                     success: (data) =>{
-                        $('#' + b_id).html("Unenroll")
-                        $('#' + b_id).attr('onclick', 'unenroll()');
+                        $('#' + atten_id).html("Unenroll")
+                        $('#' + atten_id).attr('onclick', 'unenroll()');
                         alert("Enrolled successfully")
                     },
                 })
             }
-
-            function unenroll(){
+            
+            function unenroll(stud_id, atten_id){
                 $.ajax({
                     type: "POST",
-                    url: './classes.php',
+                    url: 'enroll_unenroll.php',
                     data: {
-                        'atten': b_name,
-                        'student': b_id,
+                        'atten': atten_id,
+                        'student': stud_id,
                         'action': 'unenroll',
                     },
                     success: (data) =>{
-                        
+                        $('#' + atten_id).html("Unenroll")
+                        $('#' + atten_id).attr('onclick', 'unenroll()');
+                        alert("Unenrolled successfully");
+                        console.log(data)
                     }
                 })
             }

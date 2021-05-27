@@ -60,23 +60,28 @@
                         <div class="table_wrapper">
                             <table>
                                 <thead>
-                                    <?php foreach($classes[0] as $k => $v){ 
-                                        if ($k!='Email')
-                                            echo "<td>$k</td>";
+                                    <?php 
+                                    if (count($classes) > 0){
+                                        foreach($classes[0] as $k => $v){ 
+                                            if ($k!='Email')
+                                                echo "<td>$k</td>";
                                         }
+                                    }
                                     ?>
 
                                 </thead>
                                 <tbody>
                                     <?php 
-                                        foreach ($classes as $c){
-                                            echo "<tr>";
-                                            foreach ($c as $k => $v){
-                                                if ($k != 'Email'){
-                                                    echo "<td>$v</td>";
+                                        if (count($classes) > 0){
+                                            foreach ($classes as $c){
+                                                echo "<tr>";
+                                                foreach ($c as $k => $v){
+                                                    if ($k != 'Email'){
+                                                        echo "<td>$v</td>";
+                                                    }
                                                 }
+                                                echo "</tr>";
                                             }
-                                            echo "</tr>";
                                         }
                                     ?>
                                 </tbody>
