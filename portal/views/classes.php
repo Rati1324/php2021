@@ -4,15 +4,23 @@ if (isset($_SESSION['email'])) {
     include('../db/db.php');
     $db = new Database();
     if (isset($_POST['atten']) && isset($_POST['student'])){
-        echo $_POST['atten'];
-        echo $_POST['student'];
+        echo $_POST['atten'] . " " . $_POST['student'];;
+        
         $db->enroll($_POST['student'], $_POST['atten']);
         exit();
     }
+    
     $student_id = $db->find_id($_SESSION['email']);
     $classes = $db->classes();
     $groups = $db->groups();
-    
+    $student_classes = $db->student_classes($_SESSION['email']);
+    foreach($student_classes as $c){
+        print_r($c);
+    }
+    echo "<br>";
+    foreach($groups as $g){
+        print_r($g);
+    }
 ?>
 
     <!DOCTYPE html>
@@ -62,6 +70,7 @@ if (isset($_SESSION['email'])) {
 
                             <tbody>
                                 <?php
+                                $roll = "Enroll";
                                 foreach ($classes as $c) {
                                     $class_id = $c['class_id'];
                                     echo "<tr>";
@@ -94,8 +103,8 @@ if (isset($_SESSION['email'])) {
                                                                 <td> <?= $i ?> </td>
                                                         <?php }
                                                         } ?>
-                                                        <td> <button class="enroll" name=<?=$student_id['id']?> id=<?= $g['atten_id'] ?>> Enroll </button> </td>
-                                                    </tr>
+                                                        <td> <button class="enroll" name=<?=$student_id['id']?> id=<?= $g['atten_id']?> onclick='enroll(this.name, this.id)'> <?=$roll?> </button> </td>
+                                                    <i></i></tr>
                                                 <?php } ?>
                                             </table>
                                         </td>
@@ -118,27 +127,36 @@ if (isset($_SESSION['email'])) {
                 })
             })
 
-            var enroll_btn = document.querySelectorAll(".enroll");
-            enroll_btn.forEach((b) => {
-                b.addEventListener('click', () => {
-                    $.ajax({
-                        type: "POST",
-                        url: './classes.php',
-                        data: {
-                            'atten': b.id,
-                            'student': b.name
-                        },
-                        success: function(data) {
-                            alert("Enrolled successfully")
-                            $('#' + b.id).html("Unenroll")
-                            $('#' + b.id).attr('onclick', 'unenroll()');
-                        },
-                    })
+            function enroll (b_name, b_id){
+                $.ajax({
+                    type: "POST",
+                    url: './classes.php',
+                    data: {
+                        'atten': b_name,
+                        'student': b_id,
+                        'action': 'enroll',
+                    },
+                    success: (data) =>{
+                        $('#' + b_id).html("Unenroll")
+                        $('#' + b_id).attr('onclick', 'unenroll()');
+                        alert("Enrolled successfully")
+                    },
                 })
-            })
+            }
 
             function unenroll(){
-                
+                $.ajax({
+                    type: "POST",
+                    url: './classes.php',
+                    data: {
+                        'atten': b_name,
+                        'student': b_id,
+                        'action': 'unenroll',
+                    },
+                    success: (data) =>{
+                        
+                    }
+                })
             }
         </script>
         <?php include('./partials/footer.php') ?>
