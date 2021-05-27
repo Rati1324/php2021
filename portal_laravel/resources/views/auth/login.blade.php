@@ -1,14 +1,16 @@
-
-
+@extends('layout.app')
+@section('styles') <link rel="stylesheet" href="{{ asset('css/auth.css') }}"> @endsection
+@section('content_inner')
 <body>
     <div class="outer_container">
         <div class="header_and_content">
-            <?php include('./partials/logged_out_header.php') ?>  
             
             <div class="content">
                 <div class="info">
                     <h3>Log in</h3>
-                        <form autocomplete="off" method="post">
+                        
+                        <form autocomplete="off" action="{{ route('login') }}"method="post">
+                            @csrf
                             <ul>
                                 <li>
                                     <label for="email">E-mail:</label><br>
@@ -27,13 +29,17 @@
                             </ul>
                         </form>
                         <div class="errors_wrapper">
-                            <p class="errors"></p>
+                            <p class="errors">
+                                @if (session('status'))
+                                    {{ session('status') }}
+                                @endif
+                            </p>
                         </div>
                 </div>
             </div>
                 
         </div>
     </div>
-    <?php include('./partials/footer.php')?>
 </body>
 </html>
+@endsection

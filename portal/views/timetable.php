@@ -1,18 +1,11 @@
 <?php
 session_start();
-include('../static/conn.php');
+require('../db/db.php');
 
 if (isset($_SESSION['email'])) {
-    // $email = $_SESSION['email'];
-    // $info_query = "SELECT * FROM student WHERE email = '$email'";
-    // $info_res = mysqli_query($conn, $info_query);
-    // $student_info = mysqli_fetch_assoc($info_res);
-    // $school_query = "SELECT name FROM school JOIN student 
-    //                     ON school.school_id = student.school_id
-    //                     WHERE student.email = '$email'
-    //     ";
-    // $school_query = mysqli_query($conn, $school_query);
-    // $school_res = mysqli_fetch_assoc($school_query)['name'];
+    $db = new Database();
+    $classes_timetable = $db->get_timetable($_SESSION['email']);    
+    
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +17,7 @@ if (isset($_SESSION['email'])) {
     <title>Document</title>
     <link rel="stylesheet" href="../static/layout.css">
     <link rel="stylesheet" href="../static/timetable.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -33,7 +27,6 @@ if (isset($_SESSION['email'])) {
 
             <div class="content">
                 <?php include('./partials/sidebar.php') ?>
-                <?php include('../db/get_timetable.php') ?>
                 <div class="info">
                     <table>
                         <thead>
@@ -52,20 +45,23 @@ if (isset($_SESSION['email'])) {
                                 $span = 1; 
                                 foreach ($classes_timetable as $c) {
                                     echo "<tr>";
+                                    print_r($c);
                                     foreach ($c as $key => $value) {
                                         if ($key == "day"){
                                             if (isset($rowspans[$value])){
                                                 if ($rowspans[$value] == 0) continue;
                                                 $span = $rowspans[$value];
                                                 $rowspans[$value] = 0;
+                                                $value = $days[$value];
                                             }
-                                            $value = $days[$value];
                                         }
-                                        echo "<td rowspan=$span> $value </td>";
+                                        if ($key != 'user_id' && $key != 'day_c' && $key != 'atten_id')
+                                            echo "<td rowspan=$span> $value </td>";
                                         $span = 1;
-                                    }
-                                    echo "</tr>";
-                                }
+                                    }?>
+                                    <td rowspan=<?=$span?>> <button class="unenroll" name="<?=$c['user_id']?>" value=<?=$c['atten_id']?> onclick='unenroll(this.value, this.name)'> Unenroll </button> </td>
+                                    </tr>
+                                <?php }
                             ?>
                         </tbody>
                     </table>
@@ -78,10 +74,29 @@ if (isset($_SESSION['email'])) {
     </div>
 
     <?php include('./partials/footer.php') ?>
-    <script src="../static/portal_scripts.js ">
-    </script>
+    <script>
+        
+        function unenroll(atten_id, user_id){
+            $.ajax({
+                type: 'post',
+                url: 'unenroll.php',
+                data:{
+                    atten_id: atten_id,
+                    user_id: user_id,
+                },
 
+                success: (data) => {
+                    console.log(data)
+                }
+            })
+            
+        }
+    </script>
 </body>
 
 </html>
-<?php } ?>
+<?php } 
+    else {
+        header('location: login.php');
+    }
+?>

@@ -1,5 +1,24 @@
 <?php
     session_start();
+    require('../db/db.php');
+    $DB = new Database();
+    if (isset($_POST['logout']) && isset($_POST['email'])){
+        session_destroy();
+    }
+
+    $error = "";
+    if (isset($_POST['submit'])) {
+        include('../static/conn.php');
+        $email = $DB->check_login($_POST['email'], $_POST['password']);
+
+        if ($email == 0) {
+            $error = "Incorrect email or password";
+        }
+        else {
+            $_SESSION['email'] = $_POST['email'];
+            header('location: home1.php');
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -12,21 +31,7 @@
     <link rel="stylesheet" href="../static/layout.css">
 </head>
 <?php 
-    if (isset($_POST['submit'])) {
-        include('../static/conn.php');
-        $query = "SELECT email, pw FROM student";
-        $students = mysqli_query($conn, $query);
-        print_r($students); 
-        if (mysqli_num_rows($students) > 0) {
-            while ($row = mysqli_fetch_assoc($students)) {
-                if ($_POST['email'] === $row['email'] && $_POST['password'] == $row['pw']) {
-                    $_SESSION['email'] = $_POST['email'];
-                    header('location: home1.php');
-                }
-            }
-        }
-        mysqli_close($conn);
-    }
+    
 ?>
 <body>
     <div class="outer_container">
@@ -56,7 +61,7 @@
                             </ul>
                         </form>
                         <div class="errors_wrapper">
-                            <p class="errors"></p>
+                            <p class="errors"><?=$error?></p>
                         </div>
                 </div>
             </div>

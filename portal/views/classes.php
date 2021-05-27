@@ -136,9 +136,6 @@ if (isset($_SESSION['email'])) {
                         success: function(data) {
                             alert("Enrolled successfully")
                         },
-                        error: (xhr, status, error) => {
-                            console.error(xhr);
-                        }
                     })
                 })
             })
@@ -149,4 +146,8 @@ if (isset($_SESSION['email'])) {
 
     </html>
 
-<?php } ?>
+<?php }
+    else {
+        header('location: login.php');
+    }
+?>

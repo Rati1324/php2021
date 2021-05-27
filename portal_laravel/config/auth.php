@@ -44,7 +44,7 @@ return [
         'api' => [
             'driver' => 'token',
             'provider' => 'students',
-            'hash' => false,
+            'hash' => true,
         ],
     ],
 
@@ -68,7 +68,7 @@ return [
     'providers' => [
         'students' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Student::class,
+            'model' => App\Student::class,
         ],
         
         // 'users' => [

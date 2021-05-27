@@ -216,4 +216,8 @@
 
 </body>
 </html>
-<?php }?>
+<?php }
+    else {
+        header('location: login.php');
+    }
+?>
