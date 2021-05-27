@@ -2,7 +2,8 @@
     session_start();
     require('../db/db.php');
     $DB = new Database();
-    if (isset($_POST['logout']) && isset($_POST['email'])){
+    if (isset($_POST['logout'])){
+        echo "logou";
         session_destroy();
     }
 

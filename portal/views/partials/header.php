@@ -40,7 +40,7 @@
     <h2>Student Portal</h2>
     <?php if (isset($_SESSION['email'])){ ?>
         <form action="../views/login.php" method="post" class="logout">
-            <button class="logout_button" name="logout"><a> Log Out </a></button>
+            <button class="logout_button" name="logout"> Log Out </button>
         </form>
     <?php } else { ?>
         <a href=""> About </a>

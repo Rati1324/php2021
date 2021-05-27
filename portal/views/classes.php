@@ -62,7 +62,6 @@ if (isset($_SESSION['email'])) {
 
                             <tbody>
                                 <?php
-
                                 foreach ($classes as $c) {
                                     $class_id = $c['class_id'];
                                     echo "<tr>";
@@ -89,9 +88,7 @@ if (isset($_SESSION['email'])) {
                                                     <td></td>
                                                 </tr>
                                                 <?php foreach ($groups[$class_id] as $g) { ?>
-
                                                     <tr name='group_$class_id'>
-
                                                         <?php foreach ($g as $k => $i) {
                                                             if ($k != 'id' && $k != 'atten_id') { ?>
                                                                 <td> <?= $i ?> </td>
@@ -108,7 +105,6 @@ if (isset($_SESSION['email'])) {
                         </table>
                     </div>
                 </div>
-
             </div>
         </div>
         <script>
@@ -120,7 +116,6 @@ if (isset($_SESSION['email'])) {
                         elem.style.display = 'table-row';
                     else elem.style.display = 'none';
                 })
-
             })
 
             var enroll_btn = document.querySelectorAll(".enroll");
@@ -135,10 +130,16 @@ if (isset($_SESSION['email'])) {
                         },
                         success: function(data) {
                             alert("Enrolled successfully")
+                            $('#' + b.id).html("Unenroll")
+                            $('#' + b.id).attr('onclick', 'unenroll()');
                         },
                     })
                 })
             })
+
+            function unenroll(){
+                
+            }
         </script>
         <?php include('./partials/footer.php') ?>
 
