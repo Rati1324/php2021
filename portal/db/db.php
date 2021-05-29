@@ -44,10 +44,24 @@
             return $row;
         }
 
-        public function classes(){
-            $query_class = "SELECT c_name, lec_name, credit, code, class_id FROM classes";
-            $res_class = mysqli_query($this->conn, $query_class);
+        
+        
+        public function already_enrolled($atten_id){
+            $student_atten_ids = [];
+            foreach($student_atten_ids as $s_g)
+                $student_atten_ids[] = $s_g['atten_id'];
+            if (in_array($atten_id, $student_atten_ids)) return 1;
+            return 0;
+        }
 
+        public function create_array_of_classes(){
+
+        }   
+             
+        public function classes($search_keyword=0){
+            $where = ($search_keyword == 0 ? " " : " WHERE c_name = " . "'$search_keyword'");
+            $query_class = "SELECT c_name, lec_name, credit, code, class_id FROM classes"  . $where;
+            $res_class = mysqli_query($this->conn, $query_class);
             $classes = [];
             if (mysqli_num_rows($res_class) > 0) {
                 while ($row = mysqli_fetch_assoc($res_class)) {
@@ -55,21 +69,12 @@
                         $classes[$row['class_id']] = $row;
                 }
             }
-
             return $classes;
         }
-        
-        public function already_enrolled($atten_id){
-            
-            $student_atten_ids = [];
-            foreach($student_attens as $s_g)
-                $student_atten_ids[] = $s_g['atten_id'];
-            if (in_array($atten_id, $student_atten_ids)) return 1;
-            return 0;
-        }
 
-        public function groups(){
-            $query_group = "SELECT * FROM groups";
+        public function groups($search_keyword=0){
+            $where = ($search_keyword == 0 ? " " : " WHERE c_name = " . "'$search_keyword'");
+            $query_group = "SELECT * FROM groups"  . $where;
             $res_group = mysqli_query($this->conn, $query_group);
             $groups = [];
             if (mysqli_num_rows($res_group) > 0) {
@@ -78,7 +83,6 @@
                     else $groups[$row['id']] = [$row];
                 }
             }
- 
             return $groups;
         }
     

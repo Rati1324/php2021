@@ -63,7 +63,7 @@
                                     <?php 
                                     if (count($classes) > 0){
                                         foreach($classes[0] as $k => $v){ 
-                                            if ($k!='Email')
+                                            if ($k!='Email' && $k!='atten_id')
                                                 echo "<td>$k</td>";
                                         }
                                     }
@@ -76,7 +76,7 @@
                                             foreach ($classes as $c){
                                                 echo "<tr>";
                                                 foreach ($c as $k => $v){
-                                                    if ($k != 'Email'){
+                                                    if ($k != 'Email' && $k!='atten_id'){
                                                         echo "<td>$v</td>";
                                                     }
                                                 }
@@ -187,9 +187,7 @@
                                     <td>Thu</td>
                                     <td>Fri</td>
                                     <td>Sat</td>
-                                    
                                 </tr>
-                
                             </thead>
                 
                             <tbody id="cal_tbody">

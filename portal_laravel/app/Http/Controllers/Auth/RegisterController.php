@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -36,14 +36,14 @@ class RegisterController extends Controller
         //     return back()->withInput()->withErrors($validator->messages());
         // }
         
-        Student::create([
-            'date of birth' => $request->dob,
+        User::create([
             'email' => $request->email,
-            'first_name' => $request->f_name,
-            'last_name' => $request->l_name,
-            'phone' => $request->phone,
-            'pw' => Hash::make($request->password),
-            'school_id' => 1
+            'password' => Hash::make($request->password),
+            // 'date of birth' => $request->dob,
+            // 'first_name' => $request->f_name,
+            // 'last_name' => $request->l_name,
+            // 'phone' => $request->phone,
+            // 'school_id' => 1
         ]);
         
         auth()->attempt($request->only('email', 'password'));
