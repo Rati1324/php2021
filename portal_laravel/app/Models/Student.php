@@ -34,7 +34,7 @@ class Student extends Authenticatable
      * @var array
      */
     protected $fillable = ['school_id', 'first_name', 'last_name', 'email', 'phone', 'pw', 'date of birth', 'year', 'semester', 'credits', 'fees'];
-
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

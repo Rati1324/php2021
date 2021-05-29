@@ -23,8 +23,4 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register',[RegisterController::class, 'register']);
 
-
-
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', function () { return view('home'); })->name('home');
