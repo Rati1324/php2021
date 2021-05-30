@@ -1,7 +1,4 @@
 <?php
-
-
-
 namespace App\Http\Controllers\Auth;
 use Illuminate\support\Facades\Hash;
 use App\Http\Controllers\Controller;

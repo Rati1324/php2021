@@ -1,53 +1,45 @@
 @extends('layout.app')
-@section('content')
-    <div class="flex justify-center">
-        <div class="w-3/12 bg-white p-6 rounded-lg">
-            @if (session('status'))
-                <div class="bg-red-500 p-4 rounded-lg mb-6 text0white text-center">
-                    {{ session('status') }}
-                </div>
-            @endif
-            <form action="{{ route('login') }}" method="POST">
-                @csrf
-                <div class="mb-4">  
-                    <label for="email" class="sr-only">Email</label>
-                    <input type="text" name="email" id="email" placeholder="Email"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('email')
-                    border-red-500 @enderror" value={{ old('email') }}>
+@section('styles') <link rel="stylesheet" href="{{ asset('css/auth.css') }}"> @endsection
+@section('content_inner')
+<body>
+    <div class="outer_container">
+        <div class="header_and_content">
+            
+            <div class="content">
+                <div class="info">
+                    <h3>Log in</h3>
+                        
+                        <form autocomplete="off" action="{{ route('login') }}"method="post">
+                            @csrf
+                            <ul>
+                                <li>
+                                    <label for="email">E-mail:</label><br>
+                                    <input type="text" id="email" name="email" >
+                                </li>
+                                    
+                                <li>
+                                    <label for="password">Password:</label><br>
+                                    <input type="password" id="password" name="password"  >
+                                </li>
 
-                    @error('email')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
+                                <li style="display:flex;flex-direction: column;">
+                                    <button id="submit" name="submit">Submit</button>
+                                </li>
+                                    
+                            </ul>
+                        </form>
+                        <div class="errors_wrapper">
+                            <p class="errors">
+                                @if (session('status'))
+                                    {{ session('status') }}
+                                @endif
+                            </p>
                         </div>
-                    @enderror
                 </div>
+            </div>
                 
-                 
-                <div class="mb-4">
-                    <label for="password" class="sr-only">password</label>
-                    <input type="password" name="password" id="password" placeholder="password"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('password')
-                    border-red-500 @enderror" value="">
-
-                    @error('password')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <div class="flex items-center">
-                        <input type="checkbox" name="remember" id="remember" class="mr-2">
-                        <label for="remember">Remember Me</label>
-                    </div>
-                </div>
-
-                <div>
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                    font-medium w-full">Register</button>
-                </div>
-            </form>
         </div>
     </div>
+</body>
+</html>
 @endsection
