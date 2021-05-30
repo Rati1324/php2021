@@ -1,42 +1,30 @@
 @extends('layout.app')
-@section('content')
-<div class="outer_container">
-    <div class="header_and_content">
+@section('styles')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/classes.css">
+@endsection
+@section('content_inner')
 
-        <div class="content">
+<div class="info">
+    <form class="search_wrapper" method="post">
+        <input type="text"  class="search" id="search" name="keyword" placeholder="Enter a class name">
+        <button class="search_btn" id="search_btn" name="search">Search</button>
+    </form>
 
-            <div class="info">
-                <div class="search_wrapper">
-                    <input type="text" class="search" id="search">
-                    <span>Search by: </span>
-                    <select name="" id="search_by">
-                        <option value="Title">Title</option>
-                        <option value="Lecturer">Lecturer</option>
-                        <option value="Credits">Credits</option>
-                        <option value="Time">Time</option>
-                        <option value="Code">Code</option>
-                    </select>
-                    <button class="search_btn" id="search_btn">Search</button>
-                </div>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <td style="width:30%"> Name </td>
-                            <td style="width:20%"> Lecturer </td>
-                            <td> Credit </td>
-                            <td> Code </td>
-                        </tr>
-                    </thead>
-        
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <td style="width:30%"> Name </td>
+                <td style="width:20%"> Lecturer </td>
+                <td> Credit </td>
+                <td> Code </td>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- creating groups and classes tablle from classes and groups array -->
+            @include('groups_table')
+        </tbody>
+    </table>
 </div>
 <script>
     var buttons = document.querySelectorAll(".group_appear");
@@ -47,29 +35,30 @@
                 elem.style.display = 'table-row';
             else elem.style.display = 'none';
         })
-
     })
 
-    var enroll_btn = document.querySelectorAll(".enroll");
-    enroll_btn.forEach((b) => {
-        b.addEventListener('click', () => {
-            $.ajax({
-                type: "POST",
-                url: './classes.php',
-                data: {
-                    'atten': b.id,
-                    'student': b.name
-                },
-                success: function(data) {
-                    alert("Enrolled successfully")
-                },
-                error: (xhr, status, error) => {
-                    console.error(xhr);
-                }
-            })
+    function enroll (a){
+        var student_id = a.getAttribute('data-student-id')
+        var atten_id = a.getAttribute('data-atten-id')
+        var action = a.getAttribute('data-action')
+        var new_action = "Enroll";
+        
+        var new_action = action == "Enroll" ? "Unenroll" : "Enroll"
+        $.ajax({
+            type: "POST",
+            url: 'enroll_unenroll.php',
+            data: {
+                'atten': atten_id,
+                'student': student_id,
+                'action': action,
+            },
+            
+            success: (data) =>{
+                alert(action + "ed successfully")
+                $('*[data-atten-id=' + atten_id + ']').attr('data-action', new_action)
+                $('*[data-atten-id=' + atten_id + ']').html(new_action)
+            },
         })
-    })
+    }
 </script>
 @endsection
-
-
