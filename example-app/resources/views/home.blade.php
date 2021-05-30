@@ -1,30 +1,35 @@
 @extends('layout.app')
 @section('styles') <link rel="stylesheet" href="{{ asset('css/portal.css') }}"> @endsection
 @section('content_inner')
-
     <div class="info">
         <div class="student_outer">
             <h2 class="header_texts"> Student </h2>
             <hr>
             <div class="student_info">
                 <div>
-                    <p>Name: </p>
-                    <p>  </p>
+                    @php
+                        $student = DB::table('student')->where('id', auth()->user()->value('id'));
+                        $classes = DB::table('student_classes')->where('email', auth()->user()->value('email'))->get();
+                        $school = DB::table('student')->join('school', 'student.school_id', '=', 'school.id')->value('school.name');
+                    @endphp
+                    
+                    <p>Name: {{ $student->value('school_id') . $student->value('last_name') }}</p>
+                    <p>{{ $school }}</p>
                 </div>
                 
                 <div>
-                    <p>Year:</p>
-                    <p>Semester:</p>
+                    <p>Year: {{ auth()->user()->year }} </p>
+                    <p>Semester: {{ $student->value('semester') }} </p>
                 </div>
                 
                 <div>
-                    <p>GPA: 0.3</p>
-                    <p>Credits: </p>
+                    <p>GPA: 1.3</p>
+                    <p>Credits: 2.1 </p>
                 </div>
                 
                 <div>
                     <p>Attendance: 68%</p>
-                    <p>Fees: </p>
+                    <p>Fees: {{ $student->value('semester')}} </p>
                 </div>
                 
             </div>
@@ -36,10 +41,23 @@
             <div class="table_wrapper">
                 <table>
                     <thead>
-
+                        <tr>
+                            <td>Name</td>
+                            <td>Lecturer</td>
+                            <td>Credits</td>
+                            <td>Code</td>
+                        </tr>
                     </thead>
                     <tbody>
-                        
+                        @foreach($classes as $class)
+                            <tr>
+                                @foreach($class as $k => $v)
+                                    @if ($k != "Email" && $k != "atten_id")
+                                    <td>{{ $v }}</td>
+                                    @endif
+                                @endforeach
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>    
             </div> 

@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['guest']);
+    }
+    
     public function index(){
         return view('auth.register');
     }
@@ -25,7 +30,7 @@ class RegisterController extends Controller
         
         // $messages = [
         //     'email' => "This is not a valid email",
-        //     'password.min' => "Lenght must be minimum 6",
+        //     'password.min' => "Length must be minimum 6",
         //     'password.regex' => "Password too weak. Try adding uppercase letters and numbers",
         //     'password_confirmation.same' => "Passwords don't match",
         //     'phone.digits' => "This is not a valid Phone number"
@@ -39,10 +44,10 @@ class RegisterController extends Controller
         Student::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            // 'date of birth' => $request->dob,
-            // 'first_name' => $request->f_name,
-            // 'last_name' => $request->l_name,
-            // 'phone' => $request->phone,
+            'date of birth' => $request->dob,
+            'first_name' => $request->f_name,
+            'last_name' => $request->l_name,
+            'phone' => $request->phone,
             // 'school_id' => 1
         ]);
         

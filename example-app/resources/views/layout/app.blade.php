@@ -21,22 +21,27 @@
                 <h2>Student Portal</h2>
                 @if (auth()->user())
                     {{-- logout here --}}
-                    <a class="logout"> Log Out </a>
+                    <form class="logout_form" action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class="logout" type="submit"> Log Out </button>
+                    </form>
                 @else 
-                    <a class="logout">  </a>
+                    <form class="logout_form" method="post">
+                        <button class="logout" type="submit">  </button>
+                    </form>
                 @endif
             </header>
             <div class="content">
                 @auth
                 <div class="sidebar">
-                    <a href="home1.php">
+                    <a href="{{ route('home') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                             <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
                         </svg>
                         <p class="menu_text"> Home </p>
                     </a>
 
-                    <a href="timetable.php">
+                    <a href="{{ route('timetable') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="50" fill="currentColor" class="bi bi-calendar-week-fill" viewBox="0 0 16 16">
                             <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zM9.5 7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm3 0h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zM2 10.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
                         </svg>
@@ -58,7 +63,7 @@
                         <p class="menu_text"> Contact </p>
                     </a>
                 </div>
-                @endauth
+                @endauth    
                 @yield('content_inner')
 
             </div>

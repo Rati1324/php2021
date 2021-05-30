@@ -15,8 +15,14 @@ header h2 {
     text-align: center;
 }
 .logout{
-    text-decoration: none;
     color: black;
-    width: 10%;
+    width: 80%;
     text-align: center;
+    border:none;
 }   
+
+.logout_form{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+}
