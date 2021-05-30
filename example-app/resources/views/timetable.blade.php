@@ -20,22 +20,24 @@
                 foreach ($classes_timetable as $c) {
                     echo "<tr>";
                     foreach ($c as $key => $value) {
-                        if ($key == "day"){
-                            if (isset($rowspans[$value])){
-                                if ($rowspans[$value] == 0) continue;
-                                $span = $rowspans[$value];
-                                $rowspans[$value] = 0;
+                        if ($key != 'user_id' && $key != 'atten_id'){
+                            if ($key == "day"){
+                                if (isset($rowspans[$value])){
+                                    if ($rowspans[$value] == 0) continue;
+                                    $span = $rowspans[$value];
+                                    $rowspans[$value] = 0;
+                                }
                             }
+                            echo "<td rowspan=$span> $value </td>";
+                            $span = 1;
                         }
-                        echo "<td rowspan=$span> $value </td>";
-                        $span = 1;
                     }
                     echo "</tr>";
-                            }
+                }
             ?>
         </tbody>
     </table>
 </div>
-
+@endsection
 {{-- <script src="../static/portal_scripts.js ">
 </script> --}}
