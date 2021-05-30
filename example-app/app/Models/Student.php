@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Student extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -17,7 +17,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username',
         'email',
         'password',
     ];
@@ -41,8 +40,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
+    protected $table = "student";
 }

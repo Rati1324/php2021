@@ -1,67 +1,92 @@
 @extends('layout.app')
-@section('content')
-    <div class="flex justify-center">
-        <div class="w-3/12 bg-white p-6 rounded-lg">
-            <form action="{{ route('register') }}" method="POST">
-                @csrf
-                <div class="mb-4">
-                    <label for="username" class="sr-only">username</label>
-                    <input type="text" name="username" id="username" placeholder="username"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('username')
-                    border-red-500 @enderror" value={{ old('username') }}>
-
-                    @error('username')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-
-                <div class="mb-4">  
-                    <label for="email" class="sr-only">Email</label>
-                    <input type="text" name="email" id="email" placeholder="Email"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('email')
-                    border-red-500 @enderror" value={{ old('email') }}>
-
+@section('styles') <link rel="stylesheet" href="{{ asset('css/auth.css') }}"> @endsection
+@section('content_inner')
+    <div class="info">
+        
+        <h3>Log in</h3>
+        <form autocomplete="off" action="{{ route('register') }}" method="post">
+            @csrf
+            <ul>
+                <li>
+                    <label for="email">E-mail:</label><br>
+                    <input type="text" id="email" name="email" >
                     @error('email')
-                        <div class="text-red-500 mt-2 text-sm">
+                        <div class="errors" id="email_errors">
                             {{ $message }}
-                        </div>
+                        </div>    
                     @enderror
-                </div>
-                
-                 
-                <div class="mb-4">
-                    <label for="password" class="sr-only">password</label>
-                    <input type="password" name="password" id="password" placeholder="password"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('password')
-                    border-red-500 @enderror" value="">
+                </li>
+                    
+                <li>
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password" >
+                    <div class="pw_strength" id="pw_strength">
+                        <span class="strength_text" id="strength_text">Password Strength: </span>
+                        <span id="strength" class="strength"> </span>
+                    </div>
+                </li>
 
-                    @error('password')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
+                <li>
+                    <label for="password_confirm">Confirm Password:</label><br>
+                    <input type="password" id="password_confirmation" name="password_confirmation" >
+                    <div class="errors" id="pw_errors">
+                        
+                        @error('password_confirmation') {{ $message }} @enderror
+                        @error('password') {{ $message }} @enderror
+                    </div>
+                    
+                </li>
+                    
+                <li>
+                    <label for="dob">Date of Birth:</label><br>
+                    <input type="date" id="dob" name="dob" >
+                </li>
 
-                <div class="mb-4">
-                    <label for="password_confirmation" class="sr-only">password_confirmation</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" placeholder="password_confirmation"
-                    class="bg-gray-100 border-2 w-full p-4 rounded-lg @error ('password_confirmation')
-                    border-red-500 @enderror" value="">
+                <li class="name_input">
+                    <label>Name:</label><br>
+                    <input type="text" id="f_name" placeholder="First" name="f_name" >
+                    <input type="text" id="l_name" placeholder="Last" name="l_name" >
+                </li>
 
-                    @error('password_confirmation')
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
+                <li>
+                    <label for="phone">Phone:</label><br>
+                    <input type="tel" id="phone" name="phone" >
+                    <div class="errors" id="phone_errors">
+                        @error('phone') {{ $message }} @enderror
+                    </div>
+                    
+                </li>
 
-                <div>
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-3 rounded
-                    font-medium w-full">Register</button>
-                </div>
-            </form>
-        </div>
+                <li style="display:flex; flex-direction: column;">
+                    <button id="submit" name="submit">Submit</button>
+                </li>
+            </ul>
+        </form>
+            <div class="errors_wrapper">
+                <p class="errors"></p>
+            </div>
     </div>
+{{-- 
+
+    <script src="../JS/validation.js">
+        
+    </script>
+
+    <script>
+        
+        var email_input = document.querySelector("#email");
+        var pw_input = document.querySelector("#password");
+        var pw_confirm_input = document.querySelector("#password_confirm");
+        var phone_input = document.querySelector("#phone");
+        var submit_btn = document.querySelector("#submit");
+        email_input.addEventListener('keyup', () => valid_email(email_input.value));
+        pw_input.addEventListener('keyup', () => valid_pw(pw_input.value));
+        pw_confirm_input.addEventListener('keyup', () => {
+            match = "";
+            if (pw_input.value != pw_confirm_input.value) match = "Passwords do not match";
+            document.querySelector("#pw_errors").innerHTML = match;
+        });
+        phone_input.addEventListener('keyup', () => valid_phone(phone_input.value));
+
+    </script> --}}
 @endsection
