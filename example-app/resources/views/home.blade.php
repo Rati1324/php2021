@@ -7,12 +7,6 @@
             <hr>
             <div class="student_info">
                 <div>
-                    @php
-                        $student = DB::table('student')->where('id', auth()->user()->value('id'));
-                        $classes = DB::table('student_classes')->where('email', auth()->user()->value('email'))->get();
-                        $school = DB::table('student')->join('school', 'student.school_id', '=', 'school.id')->value('school.name');
-                    @endphp
-                    
                     <p>Name: {{ $student->value('school_id') . $student->value('last_name') }}</p>
                     <p>{{ $school }}</p>
                 </div>

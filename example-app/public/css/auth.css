@@ -40,7 +40,7 @@ input{
 }
 
 .errors{
-    color: rgb(219, 17, 17);
+    color: rgb(168, 48, 48);
 }
 
 .strength_text{
@@ -49,6 +49,6 @@ input{
     margin-top: 5px;
 }
 .strength{
-    color: red;
+    color: rgb(92, 97, 141);
 }
 

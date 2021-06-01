@@ -21,25 +21,25 @@ class RegisterController extends Controller
 
     public function register(Request $request){
         
-        // $rules = [
-        //     'email' => 'email',
-        //     'password' => 'min:6|regex:"^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$"',
-        //     'password_confirmation' => 'same:password',
-        //     'phone' => 'digits:9'
-        // ];
+        $rules = [
+            'email' => 'email',
+            'password' => 'min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/',
+            'password_confirmation' => 'same:password',
+            'phone' => 'digits:9'
+        ];
         
-        // $messages = [
-        //     'email' => "This is not a valid email",
-        //     'password.min' => "Length must be minimum 6",
-        //     'password.regex' => "Password too weak. Try adding uppercase letters and numbers",
-        //     'password_confirmation.same' => "Passwords don't match",
-        //     'phone.digits' => "This is not a valid Phone number"
-        // ];
+        $messages = [
+            'email' => "This is not a valid email",
+            'password.min' => "Length must be minimum 8",
+            'password.regex' => "Password too weak. Try adding atleast one uppercase letter and number",
+            'password_confirmation.same' => "Passwords don't match",
+            'phone.digits' => "This is not a valid Phone number"
+        ];
 
-        // $validator = Validator::make($request->all(), $rules, $messages);
-        // if ($validator->fails()){
-        //     return back()->withInput()->withErrors($validator->messages());
-        // }
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()){
+            return back()->withInput()->withErrors($validator->messages());
+        }
         
         Student::create([
             'email' => $request->email,
@@ -48,7 +48,7 @@ class RegisterController extends Controller
             'first_name' => $request->f_name,
             'last_name' => $request->l_name,
             'phone' => $request->phone,
-            // 'school_id' => 1
+            'school_id' => 1
         ]);
         
         auth()->attempt($request->only('email', 'password'));
