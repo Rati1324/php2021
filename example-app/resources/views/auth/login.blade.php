@@ -1,7 +1,10 @@
 @extends('layout.app')
-@section('styles') <link rel="stylesheet" href="{{ asset('css/auth.css') }}"> @endsection
+@section('styles') 
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}"> 
+    
+@endsection
+
 @section('content_inner')
-<body>
     <div class="outer_container">
         <div class="header_and_content">
             
@@ -9,7 +12,7 @@
                 <div class="info">
                     <h3>Log in</h3>
                         
-                        <form autocomplete="off" action="{{ route('login') }}"method="post">
+                        <form autocomplete="off" action="{{ route('login') }}" method="post">
                             @csrf
                             <ul>
                                 <li>
@@ -22,8 +25,9 @@
                                     <input type="password" id="password" name="password"  >
                                 </li>
 
-                                <li style="display:flex;flex-direction: column;">
-                                    <button id="submit" name="submit">Submit</button>
+                                <li style="display:flex;flex-direction: column;" >
+                                    <button id="submit" class="btn_1" name="submit">
+                                        <span>Submit</span></button>
                                 </li>
                                     
                             </ul>
@@ -40,6 +44,4 @@
                 
         </div>
     </div>
-</body>
-</html>
 @endsection

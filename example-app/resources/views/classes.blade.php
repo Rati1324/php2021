@@ -1,16 +1,15 @@
 @extends('layout.app')
 @section('styles')
+    <link rel="stylesheet" href="{{ asset('css/classes.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/classes.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content_inner')
-
 <div class="info">
-    <form class="search_wrapper" method="post">
-        <input type="text"  class="search" id="search" name="keyword" placeholder="Enter a class name">
-        <button class="search_btn" id="search_btn" name="search">Search</button>
+    <form class="search_form" action={{ route('search') }} method="GET">
+        <input type="text" class="search" id="search" name="keyword" placeholder="Enter a class name">
+        <button class="btn_1" id="search_btn" name="search">Search</button>
     </form>
-
     <table>
         <thead>
             <tr>
@@ -42,23 +41,25 @@
         var atten_id = a.getAttribute('data-atten-id')
         var action = a.getAttribute('data-action')
         var new_action = "Enroll";
-        
         var new_action = action == "Enroll" ? "Unenroll" : "Enroll"
+
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content')
         $.ajax({
             type: "POST",
-            url: 'enroll_unenroll.php',
+            url: '/classes',
             data: {
+                _token: CSRF_TOKEN,
                 'atten': atten_id,
                 'student': student_id,
                 'action': action,
             },
-            
-            success: (data) =>{
+            success: function (data){
                 alert(action + "ed successfully")
                 $('*[data-atten-id=' + atten_id + ']').attr('data-action', new_action)
                 $('*[data-atten-id=' + atten_id + ']').html(new_action)
             },
         })
     }
+
 </script>
 @endsection

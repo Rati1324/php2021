@@ -19,17 +19,14 @@
             <header>
                 <div class="filler"></div>
                 <h2>Student Portal</h2>
-                @if (auth()->user())
-                    {{-- logout here --}}
+                @auth
                     <form class="logout_form" action="{{ route('logout') }}" method="post">
                         @csrf
-                        <button class="logout" type="submit"> Log Out </button>
+                        <button class="logout btn_2" type="submit"> Log Out </button>
                     </form>
                 @else 
-                    <form class="logout_form" method="post">
-                        <button class="logout" type="submit">  </button>
-                    </form>
-                @endif
+                    <div class="filler" type="submit">  </div>
+                @endauth
             </header>
             <div class="content">
                 @auth

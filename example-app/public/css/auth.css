@@ -30,17 +30,13 @@ li{
     margin-bottom:15px;
 }
 input{
-    width: 85%;
+    width: 90%;
     height: 25px;
     border-radius: 4px
 }
 
 .name_input input{
     width: 41%;
-}
-
-button{
-    width:30%;
 }
 
 .errors{
