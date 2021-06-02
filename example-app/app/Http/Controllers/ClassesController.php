@@ -13,7 +13,7 @@ class ClassesController extends Controller
     }
     public function index()
     {
-        $stud_id = auth()->user()->value('id');
+        $stud_id = auth()->user()->id;
         $classes = DB::table('classes_enroll')->groupBy('c_name')->get();
 
         $groups = DB::table("groups")->get()->toArray();

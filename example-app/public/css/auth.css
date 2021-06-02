@@ -36,7 +36,7 @@ input{
 }
 
 .name_input input{
-    width: 41%;
+    width: 43.5%;
 }
 
 .errors{
@@ -49,6 +49,6 @@ input{
     margin-top: 5px;
 }
 .strength{
-    color: rgb(92, 97, 141);
+    color: rgb(65, 75, 168);
 }
 

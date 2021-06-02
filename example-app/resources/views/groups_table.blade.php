@@ -7,7 +7,7 @@ foreach($groups as $g){
     else $classes_groups[$g->class_id] = [$g];
 }
 
-$student_id = auth()->user()->value('id');
+$student_id = auth()->user()->id;
 $action = "Enroll";
 foreach ($classes as $c) {
     // listing classes

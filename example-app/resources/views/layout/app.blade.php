@@ -26,7 +26,7 @@
                     </form>
                 @else 
                     @php
-                        $x = Route::is('Register') ? 'Login' : 'Register';
+                        $x = Route::is('register') ? 'Login' : 'Register';
                         $route = Route::is('login') ? 'register' : 'login';
                     @endphp
                     <a class="filler" style="text-decoration:none;color:black" href='{{ route($route) }}'> {{ $x }} </a>

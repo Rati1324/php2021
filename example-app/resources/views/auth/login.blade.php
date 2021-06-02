@@ -3,7 +3,8 @@
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}"> 
     
 @endsection
-
+@php
+@endphp
 @section('content_inner')
     <div class="outer_container">
         <div class="header_and_content">

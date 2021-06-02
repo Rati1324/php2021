@@ -27,8 +27,8 @@ class TimetableController extends Controller
     }
     public function index()
     {
-        $classes = DB::table("classes")->orderBy('day')->get();
         $stud_id = auth()->user()->id;
+        $classes = DB::table("classes")->orderBy('day')->get();
         $classes_timetable = $classes->where('user_id', $stud_id);
         $rowspans = $this->rowspans($classes_timetable);
         return view('timetable', compact('classes_timetable', 'rowspans'));    
