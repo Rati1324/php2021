@@ -7,7 +7,7 @@
             <hr>
             <div class="student_info">
                 <div>
-                    <p>Name: {{ $student->value('school_id') . $student->value('last_name') }}</p>
+                    <p>Name: {{ $student->value('first_name') . " " . $student->value('last_name') }}</p>
                     <p>{{ $school }}</p>
                 </div>
                 
@@ -47,7 +47,7 @@
                             <tr>
                                 @foreach($class as $k => $v)
                                     @if ($k != "Email" && $k != "atten_id")
-                                    <td>{{ $v }}</td>
+                                        <td>{{ $v }}</td>
                                     @endif
                                 @endforeach
                             </tr>
@@ -70,54 +70,16 @@
             <div class="wrapper">
 
                 <div class="images" id="images">
-                    
-                    <div>
-                        <img src="img/1.jpg" alt="">
-                        <span>
-                            news!!!!
-                        </span>
-                    </div>
-
-                    <div>
-                        <img src="img/2.jpg" alt="">
-                        <span>
-                            news!!!!
-                        </span>
-                    </div>
-
-                    <div>
-                        <img src="img/3.png" alt="">
-                        <span>
-                            news!!!!
-                        </span>
-                    </div>
-                    <div>
-                        <img src="img/4.png" alt="">
-                        <span>
-                            news!!!!
-                        </span>
-                    </div>
-
-                    <div>
-                        <img src="img/5.png" alt="">
-                        <span>
-                            news!!!!
-                        </span>
-                    </div>
-
-                    <div>
-                        <img src="img/6.png" alt="">
-                        <span>
-                            news!!!!
-                        </span>
-                    </div>
-
-                    <div>
-                        <img src="img/7.jpg" alt="">
-                        <span>
-                            news!!!!
-                        </span>
-                    </div>
+                        @php $imgs = scandir('../public/img') @endphp
+                        @for($i=2; $i < count($imgs); $i++)
+                            @php $img = "img/" . $imgs[$i];  @endphp
+                            <div>
+                                <img src="{{ asset($img) }}" alt="">
+                                <span>
+                                    news!!!!
+                                </span>
+                            </div>
+                        @endfor  
                 </div>
 
             </div> 

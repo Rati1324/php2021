@@ -1,4 +1,4 @@
-<style>
+{{-- <style>
     header{
         display: flex;
         flex-direction: row;
@@ -28,4 +28,4 @@
     <a href=""> Contact </a>
     <h2>Student Portal</h2>
     <a href=""> About </a>
-</header>
+</header> --}}

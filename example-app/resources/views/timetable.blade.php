@@ -16,6 +16,8 @@
         </thead>
         <tbody>
             <?php
+
+                $days = ["Monday", "Tuestday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
                 $span = 1; 
                 foreach ($classes_timetable as $c) {
                     echo "<tr>";
@@ -27,6 +29,7 @@
                                     $span = $rowspans[$value];
                                     $rowspans[$value] = 0;
                                 }
+                                $value = $days[$value];
                             }
                             echo "<td rowspan=$span> $value </td>";
                             $span = 1;

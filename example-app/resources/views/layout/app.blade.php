@@ -25,7 +25,11 @@
                         <button class="logout btn_2" type="submit"> Log Out </button>
                     </form>
                 @else 
-                    <div class="filler" type="submit">  </div>
+                    @php
+                        $x = Route::is('Register') ? 'Login' : 'Register';
+                        $route = Route::is('login') ? 'register' : 'login';
+                    @endphp
+                    <a class="filler" style="text-decoration:none;color:black" href='{{ route($route) }}'> {{ $x }} </a>
                 @endauth
             </header>
             <div class="content">

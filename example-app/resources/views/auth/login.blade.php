@@ -17,12 +17,12 @@
                             <ul>
                                 <li>
                                     <label for="email">E-mail:</label><br>
-                                    <input type="text" id="email" name="email" >
+                                    <input type="text" id="email" name="email" required>
                                 </li>
                                     
                                 <li>
                                     <label for="password">Password:</label><br>
-                                    <input type="password" id="password" name="password"  >
+                                    <input type="password" id="password" name="password" required>
                                 </li>
 
                                 <li style="display:flex;flex-direction: column;" >
@@ -33,7 +33,7 @@
                             </ul>
                         </form>
                         <div class="errors_wrapper">
-                            <p class="errors">
+                            <p class="errors" style="margin-left:30px;">
                                 @if (session('status'))
                                     {{ session('status') }}
                                 @endif

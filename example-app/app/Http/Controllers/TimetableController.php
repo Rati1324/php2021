@@ -12,12 +12,25 @@ class TimetableController extends Controller
     {
         $this->middleware(['auth']);
     }
-    
+    public function rowspans($classes_timetable)
+    {
+        
+        $rowspans = [1 => 1, 2 => 1, 3 => 1, 4 => 1, 5 => 1, 6 => 1, 7 => 1];
+        $prev = -1;
+        foreach ($classes_timetable as $c){
+            $cur_day = $c->day;
+            if ($cur_day == $prev)
+                $rowspans[$cur_day]++;
+            $prev = $cur_day;
+        }
+        return $rowspans;
+    }
     public function index()
     {
-        $classes = DB::table("get_classes")->get();
+        $classes = DB::table("classes")->orderBy('day')->get();
         $stud_id = auth()->user()->id;
         $classes_timetable = $classes->where('user_id', $stud_id);
-        return view('timetable')->with('classes_timetable', $classes_timetable);    
+        $rowspans = $this->rowspans($classes_timetable);
+        return view('timetable', compact('classes_timetable', 'rowspans'));    
     }
 }

@@ -48,7 +48,6 @@ class RegisterController extends Controller
             'first_name' => $request->f_name,
             'last_name' => $request->l_name,
             'phone' => $request->phone,
-            'school_id' => 1
         ]);
         
         auth()->attempt($request->only('email', 'password'));

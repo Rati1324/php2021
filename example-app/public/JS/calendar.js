@@ -23,11 +23,9 @@ function move(stop, dir){
     else if (dir==1 && left_img!=0) {left_img--; right_img++}
 }
 
-
-
 function get_month(num){
-    months = ["იანვარი","თებერვალი","მარტი","აპრილი","მაისი","ივნისი","ივლისი","აგვისტო","სექტემბერი"
-                    ,"ოქტომბერი","ნოემბერი","დეკემბერი"]
+    months = ["January", "February","March","April","May","June","July","August"
+                    ,"September","October", "November", "Decembet"]
     return months[num]
 }
 

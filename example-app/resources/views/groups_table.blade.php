@@ -1,5 +1,5 @@
 <?php
-
+$days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 $classes_groups = [];
 foreach($groups as $g){
     if (isset($classes_groups[$g->class_id]))
@@ -43,15 +43,13 @@ foreach ($classes as $c) {
                     ?>
                     <tr name='group_$class_id'>
                         <?php foreach ($g as $k => $v) {
-                            if ($k != 'id' && $k != 'atten_id') { 
-                                if (in_array($g->atten_id, $student_atten_ids)){
-                                    echo "<td> $v </td>";
+                            if ($k != 'class_id' && $k != 'atten_id') { 
+                                if (in_array($g->atten_id, $student_atten_ids))
                                     $action = "Unenroll";
-                                }
-                                else{
+                                else
                                     $action = "Enroll";
-                                    echo "<td> $v </td>";
-                                }
+                                $v = $k == "day" ? $days[$v] : $v;
+                                echo "<td> $v </td>";
                             }
                             }?>
                         <td> <button class="enroll" data-student-id=<?=$student_id?> data-action=<?=$action?> data-atten-id=<?=$g->atten_id?> onclick=enroll(this)> <?=$action?> </button> </td>
