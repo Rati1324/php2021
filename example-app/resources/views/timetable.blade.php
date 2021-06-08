@@ -16,31 +16,26 @@
         </thead>
         <tbody>
             <?php
-
                 $days = ["Monday", "Tuestday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
                 $span = 1; 
                 foreach ($classes_timetable as $c) {
                     echo "<tr>";
                     foreach ($c as $key => $value) {
                         if ($key != 'user_id' && $key != 'atten_id'){
-                            if ($key == "day"){
-                                if (isset($rowspans[$value])){
-                                    if ($rowspans[$value] == 0) continue;
-                                    $span = $rowspans[$value];
-                                    $rowspans[$value] = 0;
-                                }
+                            if ($key != "day") echo "<td rowspan=$span> $value </td>";
+                            else if (isset($rowspans[$value]) && ($rowspans[$value] != 0)){
+                                $span = $rowspans[$value];
+                                $rowspans[$value] = 0;
                                 $value = $days[$value];
+                                echo "<td rowspan=$span> $value </td>";
                             }
-                            echo "<td rowspan=$span> $value </td>";
-                            $span = 1;
                         }
+                        $span = 1;
                     }
-                    echo "</tr>";
                 }
+                echo "</tr>";
             ?>
         </tbody>
     </table>
 </div>
 @endsection
-{{-- <script src="../static/portal_scripts.js ">
-</script> --}}
