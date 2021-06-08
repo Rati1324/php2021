@@ -29,6 +29,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login',[LoginController::class, 'login']);
 
 Route::get('/timetable', [TimetableController::class, 'index'])->name('timetable');
+
 Route::get('/classes', [ClassesController::class, 'index'])->name('classes');
 Route::post('/classes', [ClassesController::class, 'enroll']);
 

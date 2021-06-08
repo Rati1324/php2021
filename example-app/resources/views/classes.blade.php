@@ -37,7 +37,6 @@
     })
 
     function enroll (a){
-        var student_id = a.getAttribute('data-student-id')
         var atten_id = a.getAttribute('data-atten-id')
         var action = a.getAttribute('data-action')
         var new_action = "Enroll";
@@ -50,7 +49,6 @@
             data: {
                 _token: CSRF_TOKEN,
                 'atten': atten_id,
-                'student': student_id,
                 'action': action,
             },
             success: function (data){

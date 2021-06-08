@@ -22,11 +22,9 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        auth()->attempt($request->only('email', 'password'));
-        return view('auth.login');
-        // if (!auth()->attempt($request->only('email', 'password'))){
-        //     return back()->with('status', "Student not found");
-        // }
-        // return redirect()->route('home');
+        if (!auth()->attempt($request->only('email', 'password'))){
+            return back()->with('status', "Student not found");
+        }
+        return redirect()->route('home');
     }
 }

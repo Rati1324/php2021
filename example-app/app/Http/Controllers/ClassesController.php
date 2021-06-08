@@ -24,16 +24,17 @@ class ClassesController extends Controller
 
     public function enroll(Request $data)
     {
+        $student = auth()->user()->id;
         if ($data->action == "Enroll"){
             DB::table('student_atten')->insert([
                 'attendance_id' => $data->atten,
-                'student_id' => $data->student,
+                'student_id' => $student
             ]);
         }
         else{
             DB::table('student_atten')->where([
                 ['attendance_id', '=', $data->atten],
-                ['student_id', '=', $data->student],
+                ['student_id', '=', $student],
             ])->delete();
         }
     }

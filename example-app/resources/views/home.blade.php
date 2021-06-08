@@ -1,9 +1,7 @@
 @extends('layout.app')
 @section('styles') <link rel="stylesheet" href="{{ asset('css/portal.css') }}"> @endsection
 @section('content_inner')
-    @php
-        // dd(auth()->user()->value('id'));
-    @endphp
+   
     <div class="info">
         <div class="student_outer">
             <h2 class="header_texts"> Student </h2>

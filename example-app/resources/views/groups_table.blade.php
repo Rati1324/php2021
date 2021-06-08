@@ -52,7 +52,7 @@ foreach ($classes as $c) {
                                 echo "<td> $v </td>";
                             }
                             }?>
-                        <td> <button class="enroll" data-student-id=<?=$student_id?> data-action=<?=$action?> data-atten-id=<?=$g->atten_id?> onclick=enroll(this)> <?=$action?> </button> </td>
+                        <td> <button class="enroll" data-action=<?=$action?> data-atten-id=<?=$g->atten_id?> onclick=enroll(this)> <?=$action?> </button> </td>
                     </tr>
                 <?php } ?>
                     
