@@ -1,1 +1,1 @@
-Student Portal (student side only)
+Student Portal
