@@ -5,7 +5,6 @@
         protected $password;
         protected $dbname;
         protected $conn;
-
         public function __construct($servername = "localhost", $username = "gau", $password = "gau123456", $dbname="products")
         {
             $this->servername = $servername;
@@ -34,12 +33,12 @@
 			$query = "SELECT SKU, p_name, price, p_size AS Size FROM product WHERE p_size is not NULL";
 			$products[] = $this->get_prods($query);
 			// Book
-			$query = "SELECT SKU, p_name, price, b_weight AS 'Weight' FROM product WHERE b_weight is not NULL";
-			$products[] = $this->get_prods($query);
+			// $query = "SELECT SKU, p_name, price, p_weight AS 'Weight' FROM product WHERE p_weight is not NULL";
+			// $products[] = $this->get_prods($query);
 			// Furniture
-			$query = "SELECT SKU, p_name, price, concat(height,'x',width,'x',f_length) as Dimensions FROM product WHERE height is not NULL AND
-			width is not NULL AND f_length is not NULL";
-			$products[] = $this->get_prods($query);
+			// $query = "SELECT SKU, p_name, price, concat(height,'x',width,'x',p_length) as Dimensions FROM product WHERE height is not NULL AND
+			// width is not NULL AND p_length is not NULL";
+			// $products[] = $this->get_prods($query);
 			return $products;			
 		}
 		public function insert_product($post_data){
