@@ -18,7 +18,6 @@ function valid_name(name){
 
 function valid_number(num, input){
 	var msg = "";
-	console.log("ASd");
 	if (num.length == 0) msg = "This field can't be empty";
 	else if (isNaN(num)) msg = "Enter a valid number";
 	else if (parseInt(num) <= 0) msg = "Enter a positive number";

@@ -69,21 +69,18 @@
 		</div>
 		<div class="type_2" name="type_form">
 			<span>Please provide dimensions in HxWxL format</span>
-			<div>
+				<br><br>
 				<label>Height (CM)</label>
 				<input type="text" name="height" id="height" step="0.01" value=<?=$old_input['height']?>>
 				<label class="message" name="message" id="height_message"></label>
-			</div>
-			<div>
+				<br><br>
 				<label>Width (CM)</label>
 				<input type="text" name="width" id="width" step="0.01" value=<?=$old_input['width']?>>
 				<label class="message" name="message" id="width_message"></label>
-			</div>
-			<div>
+				<br><br>
 				<label>Length (CM)</label>
 				<input type="text" name="length" id="length" step="0.01" value=<?=$old_input['length']?>>
 				<label class="message" name="message" id="length_message"></label>
-			</div>
 		</div>
 		<div class="type_3" name="type_form">
 			<span>Please provide the weight</span>
@@ -104,20 +101,31 @@
 		var type_chosen = document.querySelector("#type")
 		type_chosen.addEventListener('change', () => {type_switch(type_chosen)})
 
+		var inputs_to_validate = [];
+		
 		function type_switch(type_chosen){
 			var types = document.getElementsByName('type_form')
 			var btn = document.getElementsByName('submit')[0] 
 			types.forEach(element => {element.style.display = "none"});
-
 			var type_form = document.querySelector('.type_' + type_chosen.value)
+			for (let i of type_form.children){
+				if (i.tagName == "INPUT")
+					inputs_to_validate.push({id: i.id, value: ""})
+			}
+			
 			type_form.style.display = "block";
 			btn.style.display = "block";
-			
+			for (let i = 0; i < type_form.children.length; i++){
+				let elem = type_form.children[i];
+				if (elem.tagName == "INPUT"){
+					inputs_to_validate.push({id: elem.id, value: ""})
+					$("#" + elem.id).keyup(() => setTimeout(() => {
+						valid_number(elem.value, elem.id)
+					}, 1000))
+				}
+			}
 		}
-		var valid = 0;
-		$("#type").on('change', (e) => {
-			console.log(e.target.value);
-		});
+		var valid = 0;							
 		$("#SKU").keyup((e) => {
 			setTimeout(() => {	
 				if (valid_sku($(e.target).val(), 'sku')) {
@@ -127,60 +135,61 @@
 				else valid = 1;
 			}, 1000);
 		})
-		$("#price").keyup((e) => {
-			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'price')){
-					e.preventDefault(); 
-					valid = 0;
-				}
-				else valid = 1;
-			}, 1000);
-		})
-		$("#size").keyup((e) => {
-			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'size')){
-					e.preventDefault();
-					valid = 0;
-				}
-				else valid = 1;
-			}, 1000);
-		})
-		$("#weight").keyup((e) => {
-			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'weight')){
-					e.preventDefault(); 
-					valid = 0;
-				}
-				else valid = 1;
-			}, 1000);
-		})
-		$("#height").keyup((e) => {
-			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'height')){
-					e.preventDefault(); 
-					valid = 0
-				}
-				else valid = 1;
-			}, 1000);
-		})
-		$("#length").keyup((e) => {
-			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'length')){
-					e.preventDefault(); 
-					valid = 0
-				}
-				else valid = 1;
-			}, 1000);
-		})
-		$("#width").keyup((e) => {
-			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'width')) {
-					e.preventDefault(); 
-					valid = 0;
-				}
-				else valid = 1;
-			}, 1000);
-		})
+		// $("#price").on("key")
+		// $("#price").keyup((e) => {
+		// 	setTimeout(() => {
+		// 		if (valid_number($(e.target).val(), 'price')){
+		// 			e.preventDefault(); 
+		// 			valid = 0;
+		// 		}
+		// 		else valid = 1;
+		// 	}, 1000);
+		// })
+		// $("#size").keyup((e) => {
+		// 	setTimeout(() => {
+		// 		if (valid_number($(e.target).val(), 'size')){
+		// 			e.preventDefault();
+		// 			valid = 0;
+		// 		}
+		// 		else valid = 1;
+		// 	}, 1000);
+		// })
+		// $("#weight").keyup((e) => {
+		// 	setTimeout(() => {
+		// 		if (valid_number($(e.target).val(), 'weight')){
+		// 			e.preventDefault(); 
+		// 			valid = 0;
+		// 		}
+		// 		else valid = 1;
+		// 	}, 1000);
+		// })
+		// $("#height").keyup((e) => {
+		// 	setTimeout(() => {
+		// 		if (valid_number($(e.target).val(), 'height')){
+		// 			e.preventDefault(); 
+		// 			valid = 0
+		// 		}
+		// 		else valid = 1;
+		// 	}, 1000);
+		// })
+		// $("#length").keyup((e) => {
+		// 	setTimeout(() => {
+		// 		if (valid_number($(e.target).val(), 'length')){
+		// 			e.preventDefault(); 
+		// 			valid = 0
+		// 		}
+		// 		else valid = 1;
+		// 	}, 1000);
+		// })
+		// $("#width").keyup((e) => {
+		// 	setTimeout(() => {
+		// 		if (valid_number($(e.target).val(), 'width')) {
+		// 			e.preventDefault(); 
+		// 			valid = 0;
+		// 		}
+		// 		else valid = 1;
+		// 	}, 1000);
+		// })
 		$("#save").click((e) => {
 			console.log(valid)
 			e.preventDefault();
