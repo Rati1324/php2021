@@ -114,7 +114,7 @@
 			btn.style.display = "block";
 			
 		}
-		var valid = 1;
+		var valid = 0;
 		$("#type").on('change', (e) => {
 			console.log(e.target.value);
 		});
@@ -129,8 +129,8 @@
 		})
 		$("#price").keyup((e) => {
 			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'price')) {
-					e.preventDefault();
+				if (valid_number($(e.target).val(), 'price')){
+					e.preventDefault(); 
 					valid = 0;
 				}
 				else valid = 1;
@@ -138,8 +138,8 @@
 		})
 		$("#size").keyup((e) => {
 			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'size') {
-					e.preventDefault(); 
+				if (valid_number($(e.target).val(), 'size')){
+					e.preventDefault();
 					valid = 0;
 				}
 				else valid = 1;
@@ -147,30 +147,43 @@
 		})
 		$("#weight").keyup((e) => {
 			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'weight')) {e.preventDefault(); valid = 0};
+				if (valid_number($(e.target).val(), 'weight')){
+					e.preventDefault(); 
+					valid = 0;
+				}
 				else valid = 1;
 			}, 1000);
 		})
 		$("#height").keyup((e) => {
 			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'height') {e.preventDefault(); valid = 0});
+				if (valid_number($(e.target).val(), 'height')){
+					e.preventDefault(); 
+					valid = 0
+				}
 				else valid = 1;
 			}, 1000);
 		})
 		$("#length").keyup((e) => {
 			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'length') {e.preventDefault(); valid = 0});
+				if (valid_number($(e.target).val(), 'length')){
+					e.preventDefault(); 
+					valid = 0
+				}
 				else valid = 1;
 			}, 1000);
 		})
 		$("#width").keyup((e) => {
 			setTimeout(() => {
-				if (valid_number($(e.target).val(), 'width') {e.preventDefault(); valid = 0});
+				if (valid_number($(e.target).val(), 'width')) {
+					e.preventDefault(); 
+					valid = 0;
+				}
 				else valid = 1;
 			}, 1000);
 		})
 		$("#save").click((e) => {
-			if (!valid) e.preventDefault();
+			console.log(valid)
+			e.preventDefault();
 		})
 	</script>
 </body>
