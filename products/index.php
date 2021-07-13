@@ -54,9 +54,6 @@
 			?>
 		</div>
 	</div>
-	<script>
-	
-	</script>
 	<hr>
 	<div style="text-align: center">ScandiWeb test assignment</div>
 </body>

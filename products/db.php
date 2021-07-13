@@ -24,6 +24,7 @@
 				}
 			}
 			return $prods;
+			$this->conn->close();
 		}
 		
 		public function get_all()
@@ -39,7 +40,8 @@
 			$query = "SELECT id, SKU, p_name, concat(price,'$'), concat(height,'x',width,'x',p_length) as Dimensions FROM product WHERE height is not NULL AND
 			width is not NULL AND p_length is not NULL";
 			$products[] = $this->get_prods($query);
-			return $products;			
+			return $products;	
+			$this->conn->close();		
 		}
 		public function insert_product($post_data){
 			$post_data['SKU'] = strtoupper($post_data['SKU']);
@@ -53,10 +55,12 @@
 			$query .= ")";
 			echo $query;
 			$this->conn->query($query);
+			$this->conn->close();
 		}
 		
 		public function delete_product($id){
 			$query = "DELETE FROM product WHERE id = '$id'";
 			$this->conn->query($query);
+			$this->conn->close();
 		}
     }

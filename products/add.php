@@ -94,6 +94,8 @@
 			</div>
 		</div>
 	</form>
+	<hr>
+	<div style="text-align: center">ScandiWeb test assignment</div>
 	<script src="validations.js"></script>
 	<script>
 		var valid = 0;							
@@ -154,5 +156,6 @@
 			return exists;
 		}
 	</script>
+
 </body>
 </html>
