@@ -1,6 +1,11 @@
 <?php 
 	include("db.php");
 	$db = new Database;
+	
+	if (isset($_POST['delete'])){
+		foreach ($_POST as $id)
+		$db->delete_product($id);
+	}
 	$products = $db->get_all();
 ?>
 <!DOCTYPE html>
@@ -18,54 +23,41 @@
 		<h1>Product List</h1>
 		<div class="buttons">
 			<form action="add.php" method="get"> <button>Add</button> </form>
-			<button name="delete" id="delete_btn" style="height:57%">Mass Delete</button>
+			<form id="del" method="post">
+				<button name="delete" id="delete_btn" style="height:57%">Mass Delete</button>
+			</form>
 		</div>
 	</header>
 	<hr>
-	<div class="products-container col-8">
-		<?php
-			foreach ($products as $type){
-				foreach($type as $p) { ?>
-				<div>
-					<div class="checkbox">
-						<form >
-							<input type="checkbox" class="delete-checkbox" id=<?php echo $p['SKU'] ?>>
-						</form>
-					</div>
-					<div class="product-info">
-						<?php foreach ($p as $k => $v){ 
-							if ($k === array_key_last($p))					
-								echo "<span>$k: $v</span>";
-							else echo "<span>$v</span>";
-						}
-					echo "
-					</div> 
-					</div>";
-				};
-			}
-		?>
-		
+	<div class="products-container-inner">
+		<div class="products-container col-8">
+			<?php
+				foreach ($products as $type){
+					foreach($type as $p) { ?>
+					<div>
+						<div class="checkbox">
+							<input name=<?=$p['id']?> form="del" value=<?=$p['id']?> type="checkbox" class="delete-checkbox" ?>
+						</div>
+						<div class="product-info">
+							<?php 
+								unset($p['id']);
+								foreach ($p as $k => $v){ 
+									if ($k === array_key_last($p))					
+										echo "<span>" . htmlspecialchars($k) . ":" . htmlspecialchars($v) . "</span>";
+									else echo "<span>" . htmlspecialchars($v) . "</span>";
+								}
+						echo "
+						</div> 
+						</div>";
+					};
+				}
+			?>
+		</div>
 	</div>
 	<script>
-		var btn = document.querySelector("#delete_btn");
-		var checkboxes = document.querySelectorAll(".delete-checkbox");
-		btn.addEventListener('click', () => {
-			
-			var SKUs = []
-			checkboxes.forEach(s => {
-				if (s.checked) SKUs.push(s.id)
-			})
-			var SKUs = JSON.stringify(SKUs);
-			console.log(SKUs);
-			$.ajax({
-				type: "post",
-				url: "delete.php",
-				data: {skus: SKUs},
-				success: (data) => {
-					location.reload();
-				},
-			})
-		})
+	
 	</script>
+	<hr>
+	<div style="text-align: center">ScandiWeb test assignment</div>
 </body>
 </html>

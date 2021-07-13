@@ -1,7 +1,7 @@
 <?php
 	include("db.php");
 	$db = new Database;
-	$old_input = ['sku' => "", 'name' => "", 'price' => "", 
+	$old_input = ['SKU' => "", 'name' => "", 'price' => "", 
 				'weight' => "", 'size' => "", 'height' => "", 
 				'width' => "", 'length' => ""];
 	foreach($_POST as $k => $v){
@@ -12,7 +12,10 @@
 				'width' => "", 'length' => ""];
 	if (isset($_POST['submit'])){
 		include("validation.php");
-		// $db->insert_product($_POST);
+		if ($valid){	
+			$db->insert_product($_POST);
+			header("location: index.php");
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -37,8 +40,8 @@
 	<form method="post" class="col-8" id="product-form" autocomplete="off">
 		<div>
 			<label>SKU</label> 
-			<input type="text" name="SKU" id="SKU" style="text-transform:uppercase" value=<?=$old_input['sku']?>>
-			<label class="message" name="message" id="sku_message"><?=$messages['sku']?></label>
+			<input type="text" name="SKU" id="SKU" style="text-transform:uppercase" value=<?=$old_input['SKU']?>>
+			<label class="message" name="message" id="SKU_message"><?=$messages['sku']?></label>
 		</div>
 		<div>
 			<label>Name</label>
@@ -93,107 +96,63 @@
 	</form>
 	<script src="validations.js"></script>
 	<script>
-		var data = {};
-		var form = document.querySelector("#product-form");
-		for (let i = 0; i < form.elements.length; i++)
-			data[form.elements[i].getAttribute("name")] = form.elements[i].value;
-
-		var type_chosen = document.querySelector("#type")
-		type_chosen.addEventListener('change', () => {type_switch(type_chosen)})
-
-		var inputs_to_validate = [];
-		
-		function type_switch(type_chosen){
-			var types = document.getElementsByName('type_form')
-			var btn = document.getElementsByName('submit')[0] 
-			types.forEach(element => {element.style.display = "none"});
-			var type_form = document.querySelector('.type_' + type_chosen.value)
-			for (let i of type_form.children){
-				if (i.tagName == "INPUT")
-					inputs_to_validate.push({id: i.id, value: ""})
-			}
-			
-			type_form.style.display = "block";
-			btn.style.display = "block";
-			for (let i = 0; i < type_form.children.length; i++){
-				let elem = type_form.children[i];
-				if (elem.tagName == "INPUT"){
-					inputs_to_validate.push({id: elem.id, value: ""})
-					$("#" + elem.id).keyup(() => setTimeout(() => {
-						valid_number(elem.value, elem.id)
-					}, 1000))
-				}
-			}
-		}
 		var valid = 0;							
 		$("#SKU").keyup((e) => {
 			setTimeout(() => {	
-				if (valid_sku($(e.target).val(), 'sku')) {
-					e.preventDefault();
+				if (!valid_sku($(e.target).val(), 'sku')) {
 					valid = 0;
 				}
 				else valid = 1;
 			}, 1000);
 		})
-		// $("#price").on("key")
-		// $("#price").keyup((e) => {
-		// 	setTimeout(() => {
-		// 		if (valid_number($(e.target).val(), 'price')){
-		// 			e.preventDefault(); 
-		// 			valid = 0;
-		// 		}
-		// 		else valid = 1;
-		// 	}, 1000);
-		// })
-		// $("#size").keyup((e) => {
-		// 	setTimeout(() => {
-		// 		if (valid_number($(e.target).val(), 'size')){
-		// 			e.preventDefault();
-		// 			valid = 0;
-		// 		}
-		// 		else valid = 1;
-		// 	}, 1000);
-		// })
-		// $("#weight").keyup((e) => {
-		// 	setTimeout(() => {
-		// 		if (valid_number($(e.target).val(), 'weight')){
-		// 			e.preventDefault(); 
-		// 			valid = 0;
-		// 		}
-		// 		else valid = 1;
-		// 	}, 1000);
-		// })
-		// $("#height").keyup((e) => {
-		// 	setTimeout(() => {
-		// 		if (valid_number($(e.target).val(), 'height')){
-		// 			e.preventDefault(); 
-		// 			valid = 0
-		// 		}
-		// 		else valid = 1;
-		// 	}, 1000);
-		// })
-		// $("#length").keyup((e) => {
-		// 	setTimeout(() => {
-		// 		if (valid_number($(e.target).val(), 'length')){
-		// 			e.preventDefault(); 
-		// 			valid = 0
-		// 		}
-		// 		else valid = 1;
-		// 	}, 1000);
-		// })
-		// $("#width").keyup((e) => {
-		// 	setTimeout(() => {
-		// 		if (valid_number($(e.target).val(), 'width')) {
-		// 			e.preventDefault(); 
-		// 			valid = 0;
-		// 		}
-		// 		else valid = 1;
-		// 	}, 1000);
-		// })
+		
+		var type_chosen = document.querySelector("#type")
+		type_chosen.addEventListener('change', () => {type_switch(type_chosen)})
+		
+		var numbers_to_validate = [];
+		function type_switch(type_chosen){
+			var types = document.getElementsByName('type_form')
+			var btn = document.getElementsByName('submit')[0] 
+			types.forEach(element => {element.style.display = "none"});
+			var type_form = document.querySelector('.type_' + type_chosen.value)
+			
+			type_form.style.display = "block";
+			btn.style.display = "block";
+
+			for (let i = 0; i < type_form.children.length; i++){
+				let elem = type_form.children[i];
+				if (elem.tagName == "INPUT"){
+					numbers_to_validate.push({id: elem.id, value: ""})
+					$("#" + elem.id).keyup(() => setTimeout(() => {
+						if (!valid_number(elem.value, elem.id)) valid = 0;
+						else valid = 1;
+					}, 1000))
+				}
+			}
+		}
+		$("#price").keyup(() => setTimeout(() => {
+			if (!valid_number($("#price").val(), "price")) valid = 0;
+			else valid = 1;
+		}, 1000))
+		
 		$("#save").click((e) => {
-			console.log(valid)
-			e.preventDefault();
+			for (let i of $("form :text")){
+				if (i.value === "") {
+					if (i.id == "SKU" || i.id == "name" || 
+						i.id == "price" || in_numbers_to_validate(i.id)){
+						$("#" + i.id + "_message").html("This field can't be empty")
+					}
+				}
+				else $("#" + i.id + "_message").html("")
+			}
+			if (!valid)
+				e.preventDefault();
 		})
+		function in_numbers_to_validate(id){
+			var exists = 0
+			numbers_to_validate.forEach(i => {if (i.id == id) exists = 1});
+			return exists;
+		}
 	</script>
 </body>
 </html>

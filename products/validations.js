@@ -5,14 +5,14 @@ function valid_sku(sku){
 	else if (!sku.match("^[A-Za-z0-9_-]*$")){
 		msg = "You can only use numbers and letters";
 	}
-	$("#sku_message").html(msg);
+	$("#SKU_message").html(msg);
 	return msg == "" ? 1 : 0;
 }
 
 function valid_name(name){
 	var msg = "";
 	if (name.length == 0) msg = "This field can't be empty";
-	$("#price_message").html(msg);
+	$("#name_message").html(msg);
 	return msg == "" ? 1 : 0;
 }
 
