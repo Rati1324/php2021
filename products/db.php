@@ -5,17 +5,14 @@
         protected $password;
         protected $dbname;
         protected $conn;
-        public function __construct($servername="localhost", $username="id17241746_user2" , 
-            $password="g78x3AOK?9o!vQ6g", $dbname="id17241746_products2")
+        public function __construct($servername = "localhost", $username = "gau", $password = "gau123456", $dbname="products")
         {
             $this->servername = $servername;
             $this->username = $username;
             $this->password = $password;
             $this->dbname = $dbname;
             $this->conn = new mysqli($servername, $username, $password, $dbname);
-// 			if ($this->conn->connect_error) {
-// 				die("Connection failed: " . $conn->connect_error);
-// 			}
+			
         }
 		
 		public function get_prods($query)
