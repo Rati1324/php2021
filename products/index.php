@@ -4,9 +4,10 @@
 	
 	if (isset($_POST['delete'])){
 		foreach ($_POST as $id)
-		$db->delete_product($id);
+		    $db->delete_product($id);
 	}
 	$products = $db->get_all();
+	$db->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -5,26 +5,32 @@
         protected $password;
         protected $dbname;
         protected $conn;
-        public function __construct($servername = "localhost", $username = "gau", $password = "gau123456", $dbname="products")
+        public function __construct($servername="localhost", $username="id17241746_user2" , 
+            $password="g78x3AOK?9o!vQ6g", $dbname="id17241746_products2")
         {
             $this->servername = $servername;
             $this->username = $username;
             $this->password = $password;
             $this->dbname = $dbname;
             $this->conn = new mysqli($servername, $username, $password, $dbname);
+// 			if ($this->conn->connect_error) {
+// 				die("Connection failed: " . $conn->connect_error);
+// 			}
         }
 		
 		public function get_prods($query)
 		{
 			$prods = [];
+			
 			$res = $this->conn->query($query);
+			
 			if ($res->num_rows > 0){
 				while ($row = $res->fetch_assoc()){
 					$prods[] = $row;
 				}
 			}
 			return $prods;
-			$this->conn->close();
+
 		}
 		
 		public function get_all()
@@ -41,26 +47,27 @@
 			width is not NULL AND p_length is not NULL";
 			$products[] = $this->get_prods($query);
 			return $products;	
-			$this->conn->close();		
+		
 		}
 		public function insert_product($post_data){
 			$post_data['SKU'] = strtoupper($post_data['SKU']);
 			unset($post_data['submit']);
 			$query = "INSERT INTO product VALUES(NULL";
 			foreach($post_data as $d){
-				echo $d . "<br>";
 				$v = empty($d) ? ", NULL" : ", '$d'";
 				$query .= $v;
 			}
 			$query .= ")";
-			echo $query;
 			$this->conn->query($query);
-			$this->conn->close();
+
 		}
 		
 		public function delete_product($id){
 			$query = "DELETE FROM product WHERE id = '$id'";
 			$this->conn->query($query);
-			$this->conn->close();
 		}
+		public function close(){
+		    $this->conn->close();
+		}
+		
     }
