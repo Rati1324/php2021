@@ -11,11 +11,16 @@
 				'size' => "", 'weight' => "",  'height' => "",
 				'width' => "", 'length' => ""];
 	if (isset($_POST['submit'])){
+		include("product.php");
+		$types = [new DVD, new Furniture, new Book];
 		include("validation.php");
-		if ($valid){	
-			$db->insert_product($_POST);
-			header("location: index.php");
-		}
+		$p = new $types[0]("asd", 232, 23, 42);
+		echo $p->get_sku();
+		print_r($_POST);
+		// if ($valid){	
+		// 	$db->insert_product($_POST);
+		// 	header("location: index.php");
+		// }
 	}
 ?>
 <!DOCTYPE html>
