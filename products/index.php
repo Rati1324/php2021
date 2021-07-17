@@ -1,8 +1,5 @@
 <?php 
 	include("product.php");
-	$p = new DVD("SD232", "DVD", 2323, 200);
-	echo $p->get_sku();
-	exit();
 	include("db.php");
 	$db = new Database;
 	

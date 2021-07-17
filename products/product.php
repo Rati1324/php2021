@@ -22,10 +22,7 @@ abstract class Product
 	{ return $this->price; }
 	public function set_price($price)
 	{ return $this->price; }
-	public function test()
-	{
-		echo "asd";
-	}
+
 	public function insert() 
 	{
 			
@@ -42,6 +39,7 @@ class DVD extends product
 		parent::__construct($SKU, $name, $price);
 		$this->size = $size;
 	}
+	
 }
 class Furniture extends product
 {
@@ -55,6 +53,7 @@ class Furniture extends product
 		$this->width = $width;
 		$this->length = $length;
 	}
+}
 class Book extends product
 {
 	protected $weight;
