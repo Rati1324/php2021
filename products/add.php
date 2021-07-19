@@ -11,15 +11,15 @@
 				'size' => "", 'weight' => "",  'height' => "",
 				'width' => "", 'length' => ""];
 	if (isset($_POST['submit'])){
-		// echo "here";
 		include("validation.php");
 		if ($valid){	
 			include("product.php");
-			$types = ["DVD", "furniture", "Books"];
-			$class_name = $types[$_POST['type'] - 1];
 			unset($_POST['submit']);
 			unset($_POST['type']);
 			$_POST = array_filter($_POST);
+
+			$types = ["DVD", "furniture", "Books"];
+			$class_name = $types[$_POST['type'] - 1];
 			$product = new $class_name(...$_POST);
 			echo $product->get_sku();
 			$product->insert();
