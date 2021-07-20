@@ -14,18 +14,23 @@
             $this->conn = new mysqli($servername, $username, $password, $dbname);
 			
         }
-		public function insert($values)
+		public function execute($query)
 		{
-			$values['SKU'] = strtoupper($values['SKU']);
-			$query = "INSERT INTO product VALUES(NULL";
-			foreach($values as $d){
-				$v = empty($d) ? ", NULL" : ", '$d'";
-				$query .= $v;
-			}
-			$query .= ")";
-			$this->conn->query($query);
-
+			echo $query;
+			$this->conn->query($query);	
 		}	
+		public function select($query)
+		{
+			$rows = [];
+			$res = $this->conn->query($query);
+			if ($res->num_rows > 0){
+				while ($row = $res->fetch_assoc()){
+					$rows[] = $row['name'];
+				}
+			}	
+			return $rows;
+		}
+		
 		public function get_prods($query)
 		{
 			$prods = [];
