@@ -37,26 +37,23 @@
 	<div class="products-container-inner">
 		<div class="products-container col-8">
 			<?php
-				foreach ($products as $type){
-					print_r($type);
-					foreach($type as $p) { 
-						?>
-
+				foreach ($products as $p){ ?>
 					<div>
 						<div class="checkbox">
-							<input name=<?=$p->get_id?> form="del" value=<?=$p['id']?> type="checkbox" class="delete-checkbox" ?>
+							<input name=<?=$p->get_id()?> value=<?=$p->get_id()?> form="del" type="checkbox" class="delete-checkbox" ?>
 						</div>
 						<div class="product-info">
 							<?php 
-								foreach ($p as $k => $v){ 
-									if ($k === array_key_last($p))					
+								print_r(get_class_methods($p));
+								$fields = (array) $p;
+								foreach($fields as $k => $v){
+									if ($k === array_key_last($fields))					
 										echo "<span>" . htmlspecialchars($k) . ":" . htmlspecialchars($v) . "</span>";
 									else echo "<span>" . htmlspecialchars($v) . "</span>";
 								}
 						echo "
 						</div> 
 						</div>";
-					};
 				}
 			?>
 		</div>
