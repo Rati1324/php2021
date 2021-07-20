@@ -19,13 +19,16 @@
 			echo $query;
 			$this->conn->query($query);	
 		}	
-		public function select($query)
+		public function select($query, $col="")
 		{
 			$rows = [];
 			$res = $this->conn->query($query);
 			if ($res->num_rows > 0){
 				while ($row = $res->fetch_assoc()){
-					$rows[] = $row['name'];
+					if (empty($col))
+						$rows[] = $row;
+					else
+						$rows[] = $row[$col];
 				}
 			}	
 			return $rows;

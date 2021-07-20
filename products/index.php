@@ -4,10 +4,13 @@
 	$db = new Database;
 	
 	if (isset($_POST['delete'])){
-		foreach ($_POST as $id)
-		    $db->delete_product($id);
+		print_r($_POST);
+		$objs = [];
+		foreach ($_POST as $id){
+			// $objs[] = new Product()
+		}
 	}
-	$products = $db->get_all();
+	$products = Product::get_all($db);
 	$db->close();
 ?>
 <!DOCTYPE html>
@@ -35,14 +38,16 @@
 		<div class="products-container col-8">
 			<?php
 				foreach ($products as $type){
-					foreach($type as $p) { ?>
+					print_r($type);
+					foreach($type as $p) { 
+						?>
+
 					<div>
 						<div class="checkbox">
-							<input name=<?=$p['id']?> form="del" value=<?=$p['id']?> type="checkbox" class="delete-checkbox" ?>
+							<input name=<?=$p->get_id?> form="del" value=<?=$p['id']?> type="checkbox" class="delete-checkbox" ?>
 						</div>
 						<div class="product-info">
 							<?php 
-								unset($p['id']);
 								foreach ($p as $k => $v){ 
 									if ($k === array_key_last($p))					
 										echo "<span>" . htmlspecialchars($k) . ":" . htmlspecialchars($v) . "</span>";
