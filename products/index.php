@@ -10,7 +10,7 @@
 			// $objs[] = new Product()
 		}
 	}
-	$products = Product::get_all($db);
+	$products = Product::return_all_products($db);
 	$db->close();
 ?>
 <!DOCTYPE html>
@@ -44,13 +44,16 @@
 						</div>
 						<div class="product-info">
 							<?php 
-								print_r(get_class_methods($p));
-								$fields = (array) $p;
-								foreach($fields as $k => $v){
-									if ($k === array_key_last($fields))					
-										echo "<span>" . htmlspecialchars($k) . ":" . htmlspecialchars($v) . "</span>";
-									else echo "<span>" . htmlspecialchars($v) . "</span>";
+								$methods = get_class_methods($p);
+								foreach($methods as $m){
+									if (substr($m, 0, 3) == 'get') echo $p->$m();
 								}
+								// $fields = (array) $p;
+								// foreach($fields as $k => $v){
+								// 	if ($k === array_key_last($fields))					
+								// 		echo "<span>" . htmlspecialchars($k) . ":" . htmlspecialchars($v) . "</span>";
+								// 	else echo "<span>" . htmlspecialchars($v) . "</span>";
+								// }
 						echo "
 						</div> 
 						</div>";

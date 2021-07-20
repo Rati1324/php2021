@@ -38,20 +38,20 @@ abstract class Product
 	public function set_price($price){ 
 		if ($price > 0) $this->price = $price; 
 	}
-	public static function get_all($db)
+	public static function return_all_products($db)
 	{
 		$products = [];
 		$query = "SELECT * FROM product";
 		$res = $db->select($query);
 		foreach($res as $p){
-			$class_name = Product::get_type($p['type_id'], $db);
+			$class_name = Product::return_type($p['type_id'], $db);
 			$p = array_values($p);
 			$p = array_filter($p);
 			$products[] = new $class_name(...$p, ...[$db]);
 		}
 		return $products;
 	}
-	public static function get_type($type_id, $db)
+	public static function return_type($type_id, $db)
 	{
 		$query = "SELECT name FROM type WHERE id = '$type_id'";
 		return $db->select($query, 'name')[0];

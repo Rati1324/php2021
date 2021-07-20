@@ -28,7 +28,7 @@
 					if (empty($col))
 						$rows[] = $row;
 					else
-						$rows[] = $row[$col];
+						$rows[] = $row['name'];
 				}
 			}	
 			return $rows;
