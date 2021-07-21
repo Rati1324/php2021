@@ -45,18 +45,19 @@
 						<div class="product-info">
 							<?php 
 								$methods = get_class_methods($p);
-								foreach($methods as $m){
-									if (substr($m, 0, 3) == 'get') echo $p->$m();
+								$methods = array_filter($methods, function($x){
+									return (substr($x, 0, 3) == 'get' && $x != "get_id" && $x != "get_type");
+								});
+								$methods[] = array_shift($methods);
+								foreach($methods as $get){ 
+									$field_name = "";
+									if (end($methods) == $get){
+										$field_name = ucfirst(substr($get, 4)) . ": "; 
+									}
+									echo "<span> $field_name" . $p->$get() . "</span>";
 								}
-								// $fields = (array) $p;
-								// foreach($fields as $k => $v){
-								// 	if ($k === array_key_last($fields))					
-								// 		echo "<span>" . htmlspecialchars($k) . ":" . htmlspecialchars($v) . "</span>";
-								// 	else echo "<span>" . htmlspecialchars($v) . "</span>";
-								// }
-						echo "
-						</div> 
-						</div>";
+						echo "</div>";
+					echo "</div>";
 				}
 			?>
 		</div>

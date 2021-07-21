@@ -7,8 +7,9 @@ abstract class Product
 	protected $price;
 	protected $type;
 	protected $db;
-	function __construct($SKU, $name, $price, $type, $db)
+	function __construct($id, $SKU, $name, $price, $type, $db)
 	{
+		$this->id = $id;
 		$this->SKU = $SKU;
 		$this->name = $name;
 		$this->price = $price;
@@ -33,10 +34,17 @@ abstract class Product
 			$this->name = $name;
 	}
 	public function get_price(){
-		return $this->price; 
+		return $this->price . "$"; 
 	}
 	public function set_price($price){ 
 		if ($price > 0) $this->price = $price; 
+	}
+	public function get_type(){
+		// return the name not id 
+		return $this->type;
+	}
+	public function set_type($type){
+		// TODO
 	}
 	public static function return_all_products($db)
 	{
@@ -60,9 +68,9 @@ abstract class Product
 class DVD extends product
 {
 	protected $size;
-	function __construct($SKU, $name, $price, $type, $size, $db)
+	function __construct($id, $SKU, $name, $price, $type, $size, $db)
 	{
-		parent::__construct($SKU, $name, $price, $type, $db);
+		parent::__construct($id, $SKU, $name, $price, $type, $db);
 		$this->size = $size;
 	}
 	public function get_size(){
@@ -83,41 +91,35 @@ class Furniture extends product
 	protected $height;
 	protected $width;
 	protected $length;
-	function __construct($SKU, $name, $price, $type, $height, $length, $width, $db)	
+	function __construct($id, $SKU, $name, $price, $type, $height, $length, $width, $db)	
 	{
-		parent::__construct($SKU, $name, $price, $type, $db);
-		$this->height = $height;
-		$this->width = $width;
+		parent::__construct($id, $SKU, $name, $price, $type, $db);
 		$this->length = $length;
-	}
-	public function get_height(){
-		return $this->height;
+		$this->width = $width;
+		$this->height = $height;
 	}
 	public function set_height($height){
 		if (is_numeric($height) && $height > 0) 
 			$this->height = $height;
 	}
-	public function get_width(){
-		return $this->width;
-	}
 	public function set_width($width){
 		if (is_numeric($width) && $width > 0) 
 			$this->width = $width;
-	}
-	public function get_length(){
-		return $this->length;
 	}
 	public function set_length($length){
 		if (is_numeric($length) && $length > 0) 
 			$this->length = $length;
 	}
+	public function get_dimensions(){
+		return $this->length . "x" . $this->width . "x" . $this->height;
+	}
 }
 class Book extends product
 {
 	protected $weight;
-	function __construct($SKU, $name, $price, $type, $weight, $db)
+	function __construct($id, $SKU, $name, $price, $type, $weight, $db)
 	{
-		parent::__construct($SKU, $name, $price, $type, $db);
+		parent::__construct($id, $SKU, $name, $price, $type, $db);
 		$this->weight = $weight;
 	}
 	public function get_weight(){
