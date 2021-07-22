@@ -8,5 +8,5 @@ if ($valid){
     echo $class_name;
     $product = new $class_name(...$_POST, ...[$db]);
     $product->insert();
-    // header("location: index.php");
+    header("location: index.php");
 }

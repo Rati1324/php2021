@@ -2,16 +2,16 @@
 	include("product.php");
 	include("db.php");
 	$db = new Database;
-	
-	if (isset($_POST['delete'])){
-		print_r($_POST);
-		$objs = [];
-		foreach ($_POST as $id){
-			// $objs[] = new Product()
-		}
-	}
 	$products = Product::return_all_products($db);
-	$db->close();
+	if (isset($_POST['delete'])){
+		unset($_POST['delete']);
+		foreach($products as $p){
+			if (in_array($p->get_id(), $_POST)){
+				$p->delete();
+			}
+		}
+		$products = Product::return_all_products($db);
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@
 <body>
 	<header class="col-8">
 		<h1>Product List</h1>
-		<div class="buttons">
+			<div class="buttons">
 			<form action="add.php" method="get"> <button>Add</button> </form>
 			<form id="del" method="post">
 				<button name="delete" id="delete_btn" style="height:57%">Mass Delete</button>
@@ -40,20 +40,21 @@
 				foreach ($products as $p){ ?>
 					<div>
 						<div class="checkbox">
-							<input name=<?=$p->get_id()?> value=<?=$p->get_id()?> form="del" type="checkbox" class="delete-checkbox" ?>
+							<input name=<?=$p->get_id()?> form="del" value=<?=$p->get_id()?> type="checkbox" class="delete-checkbox" ?>
 						</div>
 						<div class="product-info">
 							<?php 
-								$methods = get_class_methods($p);
-								$methods = array_filter($methods, function($x){
-									return (substr($x, 0, 3) == 'get' && $x != "get_id" && $x != "get_type");
+								// storing the getters in $getters
+								$getters = get_class_methods($p);
+								$getters = array_filter($getters, function($x){
+									return (substr($x, 0, 3) == 'get' && $x != 'get_id' && $x != "get_type");
 								});
-								$methods[] = array_shift($methods);
-								foreach($methods as $get){ 
+								$getters[] = array_shift($getters);
+								// calling the getters one by one
+								foreach($getters as $get){ 
 									$field_name = "";
-									if (end($methods) == $get){
+									if (end($getters) == $get)
 										$field_name = ucfirst(substr($get, 4)) . ": "; 
-									}
 									echo "<span> $field_name" . $p->$get() . "</span>";
 								}
 						echo "</div>";

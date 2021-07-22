@@ -12,11 +12,9 @@
             $this->password = $password;
             $this->dbname = $dbname;
             $this->conn = new mysqli($servername, $username, $password, $dbname);
-			
         }
 		public function execute($query)
 		{
-			echo $query;
 			$this->conn->query($query);	
 		}	
 		public function select($query, $col="")

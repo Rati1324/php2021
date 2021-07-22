@@ -7,7 +7,7 @@ abstract class Product
 	protected $price;
 	protected $type;
 	protected $db;
-	function __construct($id, $SKU, $name, $price, $type, $db)
+	function __construct($id="", $SKU, $name, $price, $type, $db)
 	{
 		$this->id = $id;
 		$this->SKU = $SKU;
@@ -40,12 +40,21 @@ abstract class Product
 		if ($price > 0) $this->price = $price; 
 	}
 	public function get_type(){
-		// return the name not id 
-		return $this->type;
+		return Product::return_type($this->type, $this->db); 
 	}
 	public function set_type($type){
 		// TODO
 	}
+
+	public function delete()
+	{
+		$id = $this->id;
+		$query = "DELETE FROM product WHERE id = '$id'";
+		$this->db->execute($query);
+	}
+	
+	public abstract function insert();
+
 	public static function return_all_products($db)
 	{
 		$products = [];
@@ -68,7 +77,7 @@ abstract class Product
 class DVD extends product
 {
 	protected $size;
-	function __construct($id, $SKU, $name, $price, $type, $size, $db)
+	function __construct($id="", $SKU, $name, $price, $type, $size, $db)
 	{
 		parent::__construct($id, $SKU, $name, $price, $type, $db);
 		$this->size = $size;
@@ -85,13 +94,14 @@ class DVD extends product
 				null, null, null, null)";
 		$this->db->execute($query);
 	}	
+	
 }
 class Furniture extends product
 {
 	protected $height;
 	protected $width;
 	protected $length;
-	function __construct($id, $SKU, $name, $price, $type, $height, $length, $width, $db)	
+	function __construct($id="", $SKU, $name, $price, $type, $height, $length, $width, $db)	
 	{
 		parent::__construct($id, $SKU, $name, $price, $type, $db);
 		$this->length = $length;
@@ -113,11 +123,17 @@ class Furniture extends product
 	public function get_dimensions(){
 		return $this->length . "x" . $this->width . "x" . $this->height;
 	}
+	public function insert()
+	{
+		$query = "insert into product values(null, '$this->SKU', '$this->name', '$this->price', '$this->type', null, 
+				$this->height, $this->width, $this->length, null)";
+		$this->db->execute($query);
+	}
 }
 class Book extends product
 {
 	protected $weight;
-	function __construct($id, $SKU, $name, $price, $type, $weight, $db)
+	function __construct($id="", $SKU, $name, $price, $type, $weight, $db)
 	{
 		parent::__construct($id, $SKU, $name, $price, $type, $db);
 		$this->weight = $weight;
@@ -128,5 +144,11 @@ class Book extends product
 	public function set_weight($weight){
 		if (is_numeric($weight) && $weight > 0) 
 			$this->weight = $weight;
+	}
+	public function insert()
+	{
+		$query = "insert into product values(null, '$this->SKU', '$this->name', '$this->price', '$this->type', null, 
+				null, null, null, $this->weight)";
+		$this->db->execute($query);
 	}
 }
